@@ -1,5 +1,5 @@
 <p align="center">
-<font size=5>ThingsPanel可视化编辑器</font>
+<font size=5>ThingsPanel可视化编辑器 Test</font>
 </p>
 <p align="center">
 可自定义组件的物联网可视化编辑器，提供了一系列即插即用的组件库。
