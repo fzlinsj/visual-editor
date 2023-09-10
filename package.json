@@ -32,6 +32,7 @@
     "@vuemap/vue-amap": "^2.0.13",
     "@wangeditor/editor": "^5.1.23",
     "@wangeditor/editor-for-vue": "^5.1.12",
+    "@vueuse/core": "^10.0.2",
     "animejs": "^3.2.1",
     "axios": "^1.4.0",
     "clipboard": "^2.0.11",
@@ -44,7 +45,9 @@
     "systemjs": "^6.14.1",
     "video.js": "^8.3.0",
     "vue": "^3.2.47",
-    "vue-router": "^4.1.6"
+    "vue-router": "^4.1.6",
+    "v-lazy-image": "^2.1.1"
+    
   },
   "devDependencies": {
     "@antv/x6-plugin-dnd": "^2.0.5",

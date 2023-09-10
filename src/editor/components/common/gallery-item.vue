@@ -2,12 +2,12 @@
     <div :class="['gallery-item', data.checked ? 'gallery-item-active' : '']">
       <div class="gallery-item-cover" @click="handleClick">
         <slot name="tags"></slot>
-        <span class="gallery-item-top" v-if="remove && data.sort > 0"><el-icon><Flag /></el-icon>置顶</span>
+        <!-- <span class="gallery-item-top" v-if="remove && data.sort! > 0"><el-icon><Flag /></el-icon>置顶</span>
         <el-tooltip effect="dark" content="重新上传，覆盖图片" placement="top-end" >
           <span class="gallery-item-edit" @click.stop="actions.update">
             <el-icon :size="16"><Sunset /></el-icon>
           </span>
-        </el-tooltip>
+        </el-tooltip> -->
         <img v-if="loadError" :src="'/error.png'" />
         <v-lazy-image
           v-else
@@ -18,10 +18,10 @@
           @error="handleRenderError"
           @load="hanldeLoad"></v-lazy-image>
       </div>
-      <div class="gallery-item-name" :title="data.img_origin_name">
+      <!-- <div class="gallery-item-name" :title="data.img_origin_name">
         <span>{{ data.img_origin_name || data.img_name }}</span>
-      </div>
-      <div class="gallery-item-action">
+      </div> -->
+      <!-- <div class="gallery-item-action">
         <el-tooltip v-for="(item, index) in btns" :key="index" effect="dark" :content="item.title" placement="bottom">
           <el-button
             :type="item.type"
@@ -30,7 +30,7 @@
             :disabled="item.disabled"
             @click.stop="actions[item.action]" />
         </el-tooltip>
-      </div>
+      </div> -->
     </div>
   </template>
   
@@ -51,7 +51,7 @@
     icon?: string
     type?: "success" | "warning" | "info" | "text" | "primary" | "danger"
     title?: string
-    action?: string
+    action: string
     disabled?: boolean
   }
   /**
@@ -134,7 +134,7 @@
     // 复制链接地址
     copy () {
       const text = myData.value.img_preview_url
-      useCopyText(ctx, text)
+      useCopyText(ctx, text as string)
     },
     // 选择
     select () {
@@ -172,12 +172,13 @@
   </script>
   
   <style lang="scss" scoped>
-  @import '@/styles/text.scss';
+  @import '@/style/text.scss';
+  
   .gallery-item {
     // padding: 10px;
     // width: 270px;
     // height: 210px;
-    height: 200px;
+    height: 100%;
     // border: 1px solid #dcdee2;
     border: 1px solid #e9ecef;
     border-radius: 8px 8px 4px 4px;
