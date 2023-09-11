@@ -13,6 +13,9 @@ import TpColorPicker from "@/plugins/tp-plugin/components/TpColorPicker.vue";
 // 第三方插件
 import * as Plugins from './dependence';
 import * as Global from '@/utils/global'
+import 'viewerjs/dist/viewer.css'
+import VueViewer, { api } from 'v-viewer'
+
 // 全局方法
 Global.install();
 
@@ -36,5 +39,13 @@ Plugins.installDataV(app);
 
 app.use(router);
 app.use(createPinia());
+app.use(VueViewer, {
+    // 参考：https://blog.csdn.net/ymzhaobth/article/details/122127852
+    // 自定义默认配置
+    defaultOptions: {
+        toolbar: true,
+        url: 'src', // Default: 'src'. Define where to get the original image URL for viewing.
+    }
+})
 
 router.isReady().then(() => app.mount('#app'));
