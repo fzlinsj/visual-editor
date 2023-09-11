@@ -66,7 +66,7 @@
         </el-form-item> -->
     </el-form>
   
-    <ImageSelect v-model:visible="imageSelectDialogVisible" @submit="customPluginSubmit"/>
+    <ImageSelect v-model:visible="imageSelectDialogVisible" @submit="imageSelectSubmit"/>
 </template>
 
 <script setup lang="ts">
@@ -88,7 +88,7 @@ const handleChange = (value: number) => {
   console.log(value)
 }
 
-const customPluginSubmit = () => {
+const imageSelectSubmit = () => {
 }
 
 const selectClick=()=>{

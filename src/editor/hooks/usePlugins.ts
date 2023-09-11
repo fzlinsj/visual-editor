@@ -4,8 +4,8 @@ import * as Common from "@/common";
 import { getDropPicComponent } from '../components/canvas-editor/DropPicComponent';
 import { getPicAttrComponent } from '../components/right-attribute-panel/components/PicAttr';
 import { useStencil } from ".";
-import tpPlugin from '@/plugins/tp-plugin' 
-import Plugins from  "@/plugins"
+import tpPlugin from '@/plugins/tp-plugin';
+import Plugins from  "@/plugins";
 /**
  * @author cxs
  * @date 2023-04-28
@@ -40,7 +40,11 @@ export const usePlugins = (): any => {
                     for (let i = 0; i < modules.length; i++) {
                         for (let j = 0; j < modules[i].default.views.length; j++) {
                             const view = modules[i].default.views[j];
-                            view.plugin = data[i];
+
+                            if(view!=null){
+                                view.plugin = data[i];
+                            }
+                            
                         }
                         remotePlugins[data[i].id] = modules[i];
                     }

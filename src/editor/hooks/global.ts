@@ -1,5 +1,6 @@
 import { getCurrentInstance, nextTick, Ref } from "vue";
 import { useClipboard } from '@vueuse/core';
+import { api as viewerApi } from "v-viewer"
 
 interface Ctx {
     $route?: any

@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   '@antv/g2':
     specifier: ^4.2.10
@@ -61,6 +65,9 @@ dependencies:
   '@vuemap/vue-amap':
     specifier: ^2.0.13
     version: 2.0.13(vue@3.2.47)
+  '@vueuse/core':
+    specifier: ^10.0.2
+    version: 10.2.1(vue@3.2.47)
   '@wangeditor/editor':
     specifier: ^5.1.23
     version: 5.1.23
@@ -97,6 +104,12 @@ dependencies:
   systemjs:
     specifier: ^6.14.1
     version: 6.14.1
+  v-lazy-image:
+    specifier: ^2.1.1
+    version: 2.1.1
+  v-viewer:
+    specifier: ^3.0.10
+    version: 3.0.10(vue@3.2.47)
   video.js:
     specifier: ^8.3.0
     version: 8.3.0
@@ -434,7 +447,7 @@ packages:
     dependencies:
       '@antv/x6': 2.9.7
       vue: 3.2.47
-      vue-demi: 0.14.5(vue@3.2.47)
+      vue-demi: 0.14.6(vue@3.2.47)
     dev: false
 
   /@antv/x6@2.9.7:
@@ -1527,7 +1540,7 @@ packages:
   /@vueuse/shared@10.2.1(vue@3.2.47):
     resolution: {integrity: sha512-QWHq2bSuGptkcxx4f4M/fBYC3Y8d3M2UYyLsyzoPgEoVzJURQ0oJeWXu79OiLlBb8gTKkqe4mO85T/sf39mmiw==}
     dependencies:
-      vue-demi: 0.14.5(vue@3.2.47)
+      vue-demi: 0.14.6(vue@3.2.47)
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
@@ -1536,7 +1549,7 @@ packages:
   /@vueuse/shared@9.13.0(vue@3.2.47):
     resolution: {integrity: sha512-UrnhU+Cnufu4S6JLCPZnkWh0WwZGUp72ktOF2DFptMlOs3TOdVv8xJN53zhHGARmVOsz5KqOls09+J1NR6sBKw==}
     dependencies:
-      vue-demi: 0.14.5(vue@3.2.47)
+      vue-demi: 0.14.6(vue@3.2.47)
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
@@ -3712,6 +3725,20 @@ packages:
     engines: {node: '>= 4'}
     dev: false
 
+  /v-lazy-image@2.1.1:
+    resolution: {integrity: sha512-QC6Jcok99CRhhsO7svfI3hcBaT945dSuaHk3jr7WHm+QJMzbB/f32xKkdF45qL5ezd5KeoqHKh4gD92mQtjfXQ==}
+    dev: false
+
+  /v-viewer@3.0.10(vue@3.2.47):
+    resolution: {integrity: sha512-ZT5sYYS+Cy4z2TP/PuhqPyiK4NonaZzhkDPfiY9bwa5EjGyusO8R7/k/4c1ptvTzx2nBSV9MvQHl2X3XzhANqw==}
+    peerDependencies:
+      vue: ^3.0.0
+    dependencies:
+      lodash: 4.17.21
+      viewerjs: 1.11.5
+      vue: 3.2.47
+    dev: false
+
   /video.js@8.3.0:
     resolution: {integrity: sha512-Vp3mqMLSUE354t+G8CbZKwcV520VKoS5fow8zjnEEKFuqStmkmnvK7/FurP6zuP/oWGJ1rqlKxML56kmJOrwRw==}
     dependencies:
@@ -3751,6 +3778,10 @@ packages:
       global: 4.4.0
     dev: false
 
+  /viewerjs@1.11.5:
+    resolution: {integrity: sha512-nsvQkC5jnqZ/2ggFYWUH5gpUGPtFAYidsFh8Q7B7sioAdqJzSJrELvbu9ozUm0W+A2uHN5XuuiheHHB+dWiPEA==}
+    dev: false
+
   /vite@4.2.0(@types/node@20.2.3)(sass@1.62.0):
     resolution: {integrity: sha512-AbDTyzzwuKoRtMIRLGNxhLRuv1FpRgdIw+1y6AQG73Q5+vtecmvzKo/yk8X/vrHDpETRTx01ABijqUHIzBXi0g==}
     engines: {node: ^14.18.0 || >=16.0.0}
@@ -3788,6 +3819,21 @@ packages:
 
   /vue-demi@0.14.5(vue@3.2.47):
     resolution: {integrity: sha512-o9NUVpl/YlsGJ7t+xuqJKx8EBGf1quRhCiT6D/J0pfwmk9zUwYkC7yrF4SZCe6fETvSM3UNL2edcbYrSyc4QHA==}
+    engines: {node: '>=12'}
+    hasBin: true
+    requiresBuild: true
+    peerDependencies:
+      '@vue/composition-api': ^1.0.0-rc.1
+      vue: ^3.0.0-0 || ^2.6.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+    dependencies:
+      vue: 3.2.47
+    dev: false
+
+  /vue-demi@0.14.6(vue@3.2.47):
+    resolution: {integrity: sha512-8QA7wrYSHKaYgUxDA5ZC24w+eHm3sYCbp0EzcDwKqN3p6HqtTCGR/GVsPyZW92unff4UlcSh++lmqDWN3ZIq4w==}
     engines: {node: '>=12'}
     hasBin: true
     requiresBuild: true
@@ -3899,7 +3945,3 @@ packages:
     dependencies:
       tslib: 2.3.0
     dev: false
-
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false

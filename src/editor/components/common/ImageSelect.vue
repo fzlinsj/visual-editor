@@ -3,8 +3,7 @@
       <div class="album-images">
         <div class="album-image-header">
           <div class="album-actions">
-            <el-button type="primary" icon="Back" @click="() => $router.back()" v-if="false">返回</el-button>
-            <el-button type="success" icon="UploadFilled">去上传</el-button>
+            <el-button type="success" icon="UploadFilled" style="margin-right: 5px;">去上传</el-button>
           </div>
         </div>
         <div class="album-image-content">
@@ -13,28 +12,22 @@
               <template v-for="(item, index) in list.data" :key="'gallery-item' + index">
                 <el-col :xl="4" :lg="6" :md="8" :sm="12" :xs="24">
                   <gallery-item
-                    :data="item"
-                    :remove="true"
-                    :images="list.data.map(item => item.img_preview_url)"
-                    @reload="listGet"
-                    :key="list.page + '-' + index"
-                    @submit="handleItemSubmit"
-                    @view="handleClick(index)">
-                    <template #tags>
-                      <div class="album-tags">
-                        <el-tag
-                          size="small"
-                          v-for="(tag, tIndex) in item.tags"
-                          :key="'tag-' + tIndex"
-                          :type="getTagType(tag)">
-                          {{ tag }}
-                        </el-tag>
-                        <el-tag class="tags-edit" size="small" effect="dark" type="primary" @click.stop="editItemTag(item)">
-                          <el-icon><Edit /></el-icon>
-                        </el-tag>
-                      </div>
-                    </template>
-                  </gallery-item>
+                  :data="item"
+                  :remove="true"
+                  :images="list.data.map(item => item.img_preview_url)"
+                  @reload="listGet"
+                  :key="list.page + '-' + index"
+                  @submit="handleItemSubmit"
+                  @view="handleClick(index)">
+                  <template #tags>
+                    <div class="album-tags">
+                      <el-tag class="tags-edit" size="small" effect="dark" type="primary">
+                        <el-icon @click="selectClick(index)"><Select/></el-icon>
+                        <el-icon style="margin-left: 10px;" @click="delClick(index)"><Delete/></el-icon>
+                      </el-tag>
+                    </div>
+                  </template>
+                </gallery-item>
                 </el-col>
               </template>
             </el-row>
@@ -50,33 +43,20 @@
             :page-sizes="[18, 36, 72, 100]"
             @change="listGet"/>
         </div>
-      <!-- 图片弹窗 -->
-      <!-- <detail-dialog
-        v-if="item.detail"
-        v-model="item.detail"
-        :show-album="false"
-        :detail="item.data"
-        @submit="listGet"/> -->
-      <!-- 标签编辑 -->
-      <!-- <tag-dialog
-        v-if="item.edit"
-        v-model="item.edit"
-        :detail="item.data"
-        @submit="() => { getTags();listGet(); }" /> -->
     </div>
-    <!-- <template #footer>
-      <span class="dialog-footer">
-        <el-button @click="dialogVisible = false">取消</el-button>
-        <el-button type="primary" @click="submit(ruleFormRef)">确认</el-button>
-      </span>
-    </template> -->
   </el-dialog>
 </template>
 
 <script setup lang="ts">
 
-import { ref, reactive, computed, watch,onActivated, onMounted } from "vue";
+import { ref,Ref, reactive, computed, watch,onActivated, onMounted } from "vue";
 import { ImageInter,ListInter } from './interface';
+import GalleryItem from '@/editor/components/common/gallery-item.vue'
+import {Select,Delete} from '@element-plus/icons-vue'
+import pagination from './pagination.vue' 
+import { useCopyText, useCtxInstance} from '@/editor/hooks/global';
+
+const ctx = useCtxInstance()
 
 
 const dialogVisible = ref<Boolean>(false);
@@ -110,6 +90,8 @@ const list: ListInter<ImageInter> = reactive({
 
 const listGet = () => {
 
+
+
 }
 const handleItemSubmit = (e: { type: string, data: ImageInter }) => {
 
@@ -117,7 +99,26 @@ const handleItemSubmit = (e: { type: string, data: ImageInter }) => {
 
 const handleClick = (index: number) => {
 
+  ctx.$viewerApi({
+    options: {
+      initialViewIndex: index
+    },
+    images: list.data.map(item => item.img_preview_url)
+  })
+
 }
+
+const selectClick=(index: number)=>{
+
+  console.log('selectclick inde:',index)
+
+}
+
+const delClick=(index: number)=>{
+
+
+}
+
 const getTagType = (tag:any) => {
   if (tag === '已完结') {
     return 'danger'
@@ -137,10 +138,10 @@ onActivated(() => {
   console.log("=====entre onActivated")
 })
 
+
 const initImg=()=>{
 
   console.log('enter ititImg')
-
   list.loading = false;
   list.total = 180;
   for(var i=0;i<18;i++){
@@ -150,9 +151,9 @@ const initImg=()=>{
       // 图片名称
       img_name: 'string'+i,
       // 图片宽度
-      img_width: 150,
+      img_width: 250,
       // 图片高度
-      img_height: 150,
+      img_height: 250,
       // 图片url
       img_url: 'https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg',
       // 图片预览地址
@@ -181,22 +182,17 @@ const initImg=()=>{
 
 }
 
-initImg();
+
 
 onMounted(()=>{
   
-  
+  initImg();
 
 })
 
 </script>
 
 <style lang="scss" scoped>
-.upload-container {
-  text-align: left;
-  height: 400px;
-  overflow-y: auto;
-}
 .album-images {
   width: 100%;
   height: 100%;
@@ -337,7 +333,7 @@ onMounted(()=>{
       .album-tags {
         position: absolute;
         left: 5px;
-        bottom: 0;
+        bottom: 30%;
         width: 100%;
         z-index: 3;
         display: flex;
