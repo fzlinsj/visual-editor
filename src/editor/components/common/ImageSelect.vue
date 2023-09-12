@@ -22,7 +22,9 @@
                   <template #tags>
                     <div class="album-tags">
                       <el-tag class="tags-edit" size="small" effect="dark" type="primary">
-                        <el-icon @click="selectClick(index)"><Select/></el-icon>
+                        
+                        <el-icon @click="preViewClick(index)"><View/></el-icon>
+                        <el-icon style="margin-left: 10px;" @click="selectClick(index)"><Select/></el-icon>
                         <el-icon style="margin-left: 10px;" @click="delClick(index)"><Delete/></el-icon>
                       </el-tag>
                     </div>
@@ -52,7 +54,7 @@
 import { ref,Ref, reactive, computed, watch,onActivated, onMounted } from "vue";
 import { ImageInter,ListInter } from './interface';
 import GalleryItem from '@/editor/components/common/gallery-item.vue'
-import {Select,Delete} from '@element-plus/icons-vue'
+import {Select,Delete,View} from '@element-plus/icons-vue'
 import pagination from './pagination.vue' 
 import { useCopyText, useCtxInstance} from '@/editor/hooks/global';
 
@@ -99,18 +101,24 @@ const handleItemSubmit = (e: { type: string, data: ImageInter }) => {
 
 const handleClick = (index: number) => {
 
-  ctx.$viewerApi({
-    options: {
-      initialViewIndex: index
-    },
-    images: list.data.map(item => item.img_preview_url)
-  })
+  
 
 }
 
 const selectClick=(index: number)=>{
 
   console.log('selectclick inde:',index)
+
+}
+
+const preViewClick=(index: number)=>{
+
+  ctx.$viewerApi({
+    options: {
+      initialViewIndex: index
+    },
+    images: list.data.map(item => item.img_preview_url)
+  })
 
 }
 
