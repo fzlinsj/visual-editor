@@ -17,26 +17,33 @@ const toggle = () => {
 }
 
 const params = parseParams();
-let { setTokenInfo, getTokenInfo } = useAuthStore();
+let { setTokenInfo, getTokenInfo,destroyToken } = useAuthStore();
 
 // ============================ 临时获取token start==============================================
 const getTokenInfoByAPI = async () => {
   const router = useRouter();
   let { data: result } = await http.post('/api/auth/login', {
-    email: "admin@thingspanel.cn",
+    email: "tenant@tenant.cn",
     password: "123456"
   })
   if (result.code === 200) {
+
+    console.log("Login Success",result)
     params.token = result.data.access_token;
     params.expiresTime = result.data.expires_in;
     setTokenInfo(params);
     // 注入参数
     provide('params', params);
     router.push({ name: 'editor', query: { id: params.id } });
+  }else{
+    console.log("Login Fail",result)
   }
 }
 
 if (import.meta.env.MODE === 'development') {
+
+  destroyToken();
+  
   const tokenInfo = getTokenInfo();
   if (tokenInfo.token) {
     // 注入参数

@@ -57,6 +57,7 @@ import GalleryItem from '@/editor/components/common/gallery-item.vue'
 import {Select,Delete,View} from '@element-plus/icons-vue'
 import pagination from './pagination.vue' 
 import { useCopyText, useCtxInstance} from '@/editor/hooks/global';
+import { PluginAPI } from "@/api";
 
 const ctx = useCtxInstance()
 
@@ -105,9 +106,23 @@ const handleClick = (index: number) => {
 
 }
 
-const selectClick=(index: number)=>{
+
+
+
+const selectClick=async (index: number)=>{
 
   console.log('selectclick inde:',index)
+
+  let { data: result } = await PluginAPI.getPicPlugins({ current_page: 1, per_page: 9999 })
+
+  console.log('response Data result ',result)
+
+  if (result.code === 200) {
+
+    
+  }
+
+
 
 }
 
