@@ -115,11 +115,11 @@ const selectClick=async (index: number)=>{
 
   let { data: result } = await PluginAPI.getPicPlugins({ current_page: 1, per_page: 9999 })
 
-  console.log('response Data result ',result)
+  console.log('response Data result: ',JSON.stringify(result) )
 
   if (result.code === 200) {
 
-    
+
   }
 
 
