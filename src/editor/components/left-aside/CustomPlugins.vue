@@ -91,6 +91,9 @@ const submit = async (formEl: FormInstance | undefined) => {
         fd.append('files', item.raw)
       })
       fd.append('plugin_name', formData.plugin_name);
+
+      console.log("==upload fd info:",fd)
+
       PluginAPI.uploadPicPlugins(fd)
         .then(({ data: result }) => {
           if (result.code === 200) {

@@ -42,8 +42,8 @@ const getTokenInfoByAPI = async () => {
 
 if (import.meta.env.MODE === 'development') {
 
-  destroyToken();
-  
+  //destroyToken();
+
   const tokenInfo = getTokenInfo();
   if (tokenInfo.token) {
     // 注入参数
