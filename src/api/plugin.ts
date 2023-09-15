@@ -29,7 +29,7 @@ export default {
 
 
     /**
-     * 上传插件
+     * 上传插件、图片等
      * @param data 
      * @returns 
      */
@@ -40,6 +40,21 @@ export default {
             data
         })
     },
+
+
+    /**
+     * 从TP对象列表
+     * @param data 
+     * @returns 
+     */
+    getObjectList: (data: any) => {
+        return axios.request({
+            url: '/file/list',
+            method: 'post',
+            data
+        })
+    },
+
 
     /**
      * 从TP获取插件列表
