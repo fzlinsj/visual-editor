@@ -54,7 +54,18 @@ export default {
         })
     },
 
-
+     /**
+     * 删除背景图片
+     * @param data 
+     * @returns 
+     */
+     deleteImgFiles: (data: any) => {
+        return axios.request({
+            url: '/file/deleteImgFile',
+            method: 'post',
+            data
+        })
+    },
 
     /**
      * 从TP对象列表

@@ -201,6 +201,10 @@ const preViewClick=(index: number)=>{
 
 const delClick=(index: number)=>{
 
+  var item = list.data[index];
+
+  console.log('item:',item)
+
 
 }
 
