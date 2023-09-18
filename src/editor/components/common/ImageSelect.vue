@@ -59,8 +59,9 @@ import {Select,Delete,View} from '@element-plus/icons-vue'
 import pagination from './pagination.vue' 
 import { useCopyText, useCtxInstance} from '@/editor/hooks/global';
 import { PluginAPI } from "@/api";
-import { dateFormat } from "@/utils";
+import { dateFormat,message } from "@/utils";
 import UploadImg from "./uploadImg.vue";
+
 
 const localUrl = import.meta.env.VITE_BASE_URL || document.location.origin;
 
@@ -202,6 +203,28 @@ const preViewClick=(index: number)=>{
 const delClick=(index: number)=>{
 
   var item = list.data[index];
+  var id = item.id;
+  if(typeof(id)==undefined){
+    return;
+  }
+
+  const fd = new FormData()
+  fd.append('id', id as string)
+
+  PluginAPI.deleteImgFiles(fd)
+    .then(({ data: result }) => {
+      if (result.code === 200) {
+        message.success('删除成功');
+
+
+      } else {
+        message.error('删除失败');
+      }
+
+      
+      listGet()
+      
+    })
 
   console.log('item:',item)
 
