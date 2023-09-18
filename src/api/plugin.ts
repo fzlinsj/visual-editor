@@ -41,6 +41,20 @@ export default {
         })
     },
 
+     /**
+     * 上传插件、图片等
+     * @param data 
+     * @returns 
+     */
+     uploadImgFiles: (data: any) => {
+        return axios.request({
+            url: '/file/upImgFiles',
+            method: 'post',
+            data
+        })
+    },
+
+
 
     /**
      * 从TP对象列表

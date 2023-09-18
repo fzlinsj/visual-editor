@@ -3,7 +3,7 @@
       <div class="album-images">
         <div class="album-image-header">
           <div class="album-actions">
-            <el-button type="success" icon="UploadFilled" style="margin-right: 5px;">去上传</el-button>
+            <el-button type="success" icon="UploadFilled" style="margin-right: 5px;" @click="showPlugins">去上传</el-button>
           </div>
         </div>
         <div class="album-image-content">
@@ -47,6 +47,7 @@
         </div>
     </div>
   </el-dialog>
+  <UploadImg v-model:visible="uploadImgDialogVisible" @submit="uploadImgSubmit"/>
 </template>
 
 <script setup lang="ts">
@@ -58,10 +59,27 @@ import {Select,Delete,View} from '@element-plus/icons-vue'
 import pagination from './pagination.vue' 
 import { useCopyText, useCtxInstance} from '@/editor/hooks/global';
 import { PluginAPI } from "@/api";
+import { dateFormat } from "@/utils";
+import UploadImg from "./uploadImg.vue";
+
+const localUrl = import.meta.env.VITE_BASE_URL || document.location.origin;
+
+
+// ========================================自定义图片=============================================
+const uploadImgDialogVisible = ref(false);
+const showPlugins = () => {
+  uploadImgDialogVisible.value = true;
+}
+
+const uploadImgSubmit = () => {
+
+  console.log("=====uploadImgSubmit")
+  listGet();
+
+}
+// ========================================自定义图片=============================================
 
 const ctx = useCtxInstance()
-
-
 const dialogVisible = ref<Boolean>(false);
 const props = defineProps({
   visible: {
@@ -92,6 +110,50 @@ const list: ListInter<ImageInter> = reactive({
 })
 
 const listGet = () => {
+  list.loading = true
+  PluginAPI.getObjectList({
+    current_page: list.page,
+    per_page: list.size,
+  }).then(({ data: result }) => {
+
+    console.log("==result",result)
+
+
+    const getPicUrl = (fileUrl: String) => {
+        if (fileUrl.startsWith('.')) {
+            return localUrl + fileUrl.slice(1);
+        }
+        return localUrl;
+    }
+    list.total = result.data.total
+    list.data = result.data.data.map((item): any => {
+
+      // 图片名称
+      item.img_name = item.file_name
+      // 图片宽度
+      item.img_width = 250
+      // 图片高度
+      item.img_height = 250
+      // 图片url
+      item.img_url = getPicUrl(item.file_url)
+      // 图片预览地址
+      item.img_preview_url=getPicUrl(item.file_url)
+      // 图片大小
+      item.img_size = item.file_size
+      // 排序值
+      // sort?: number
+      // 是否选中
+      item.checked = true
+      // 创建时间
+      item.createdAt=dateFormat(item.create_time)
+      // 更新时间
+      item.updatedAt=dateFormat(item.create_time)
+
+      
+      return item
+    })
+    list.loading = false
+  })
 
 
 
@@ -209,7 +271,7 @@ const initImg=()=>{
 
 onMounted(()=>{
   
-  initImg();
+  listGet();
 
 })
 
