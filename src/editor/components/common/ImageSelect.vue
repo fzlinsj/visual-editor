@@ -203,13 +203,22 @@ const preViewClick=(index: number)=>{
 const delClick=(index: number)=>{
 
   var item = list.data[index];
+
+  console.log('====item',item)
+
   var id = item.id;
   if(typeof(id)==undefined){
     return;
   }
 
+  var file_url = item.file_url
+  if(typeof(file_url)==undefined){
+    return;
+  }
+
   const fd = new FormData()
   fd.append('id', id as string)
+  fd.append('file_url',file_url)
 
   PluginAPI.deleteImgFiles(fd)
     .then(({ data: result }) => {

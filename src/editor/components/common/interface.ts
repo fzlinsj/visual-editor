@@ -2,6 +2,8 @@
  * 图片实体
  */
  export interface ImageInter {
+[x: string]: any
+file_url: string
     // 图片id
     id?: string
     // 图片名称
