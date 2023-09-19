@@ -117,7 +117,9 @@ const listGet = () => {
     per_page: list.size,
   }).then(({ data: result }) => {
 
-    console.log("==result",result)
+    list.loading = false
+
+    //console.log("==result",result)
 
 
     const getPicUrl = (fileUrl: String) => {
@@ -153,7 +155,7 @@ const listGet = () => {
       
       return item
     })
-    list.loading = false
+    
   })
 
 
@@ -258,51 +260,6 @@ const editItemTag = (data: ImageInter) => {
 onActivated(() => {
   console.log("=====entre onActivated")
 })
-
-
-const initImg=()=>{
-
-  console.log('enter ititImg')
-  list.loading = false;
-  list.total = 180;
-  for(var i=0;i<18;i++){
-
-    var item={ 
-      id: i+'',
-      // 图片名称
-      img_name: 'string'+i,
-      // 图片宽度
-      img_width: 250,
-      // 图片高度
-      img_height: 250,
-      // 图片url
-      img_url: 'https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg',
-      // 图片预览地址
-      img_preview_url: 'https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg',
-      // 图片大小
-      img_size: 123456,
-      // 排序值
-      // sort?: number
-      // 是否选中
-      checked: true,
-      // 创建时间
-      createdAt: '2020-10-01 11:00:00',
-      // 更新时间
-      updatedAt:'2020-10-01 11:00:00',
-    }
-
-    list.data.push(item);
-
-
-  }
-
-  console.log('list info:',list)
-
-
-  console.log('exit ititImg')
-
-}
-
 
 
 onMounted(()=>{
