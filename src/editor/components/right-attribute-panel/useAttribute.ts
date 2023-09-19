@@ -18,13 +18,12 @@ export const useAttribute = () => {
             showImage: false,
             repeat: 'no-repeat',
             position: 'center',
-            size: 'auto auto',
+            size: 'cover',
             opacity: 1,
             angle: 20,
-          }
+        }
         canvasConfig.setBackground(background);
         console.log('onCanvasAttrChange', data, data.showGrid, data.gridSize)
-
     }
 
     return {

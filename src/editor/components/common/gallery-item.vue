@@ -69,7 +69,7 @@
   const emit = defineEmits(['update:data', 'reload', 'submit', 'view'])
   const ctx = useCtxInstance()
   
-  const placeholder = new URL('./loading.gif', import.meta.url).href
+  const placeholder = new URL('./placeholder.png', import.meta.url).href
   
   /**
    * 变量

@@ -697,7 +697,7 @@ class CanvasConfig implements ICanvasConfig {
         this.graphOptions.background = options;
     }
 
-    public getGrahOptions() {
+    public getGrahOptions():ICanvasConfig.GraphOptions {
         return this.graphOptions;
     }
     

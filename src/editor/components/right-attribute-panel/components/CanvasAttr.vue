@@ -32,8 +32,6 @@
             <div class="album-image-list">
                 <gallery-item
                 :data=imageData
-                :remove="true"
-                @reload="listGet"
                 :key="1111"
                 @submit="handleItemSubmit"
                 @view="handleClick(0)">
@@ -70,17 +68,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, watch,Ref } from "vue";
+import { ref, reactive, watch,Ref,onMounted} from "vue";
 import { Picture as IconPicture,Edit as IconEdit,Select,Delete} from '@element-plus/icons-vue'
 import ImageSelect from "../../common/ImageSelect.vue";
 import GalleryItem from '@/editor/components/common/gallery-item.vue'
 import { ImageInter } from '@/editor/components/common/interface';
-
+import { CanvasConfig } from "@/editor/config"
+import { Background } from "@antv/x6/lib/registry/background";
 
 const imageSelectDialogVisible = ref(false);
 const showCustomPlugins = () => {
-
-  console.log('====nter showCustomPlugins')  
   imageSelectDialogVisible.value = true;
 }
 
@@ -93,16 +90,11 @@ const imageSelectSubmit = () => {
 
 const selectClick=()=>{
 
-    console.log('eiitClick====')
-
     showCustomPlugins();
-
 }
 
 const delClick=()=>{
-
-console.log('delClick====')
-
+    formData.backgroundImage = "https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg"
 }
 
 const imageData: Ref<ImageInter> = ref(
@@ -115,15 +107,15 @@ const imageData: Ref<ImageInter> = ref(
     // 图片高度
     img_height: 150,
     // 图片url
-    img_url: 'https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg',
+    img_url: '',
     // 图片预览地址
-    img_preview_url: 'https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg',
+    img_preview_url: '',
     // 图片大小
     img_size: 123456,
     // 排序值
     // sort?: number
     // 是否选中
-    checked: true,
+    checked: false,
     // 创建时间
     createdAt: '2020-10-01 11:00:00',
     // 更新时间
@@ -145,14 +137,33 @@ const handleClick = (index: number) => {
 
 const editItemTag = (data: ImageInter) => {
   
+    
 }
+
+const initFormData=()=>{
+
+    const canvasConfig: ICanvasConfig = CanvasConfig.getInstance();
+    var graphOption = canvasConfig.getGrahOptions();
+    var backgroundOptions = graphOption as Background.Options;
+    formData.showGrid = graphOption.showGrid;
+    formData.gridSize = graphOption.gridSize;
+    formData.showRuler = graphOption.showRuler;
+    formData.backgroundColor = graphOption.background.color as string;
+    formData.backgroundImage = backgroundOptions.image as string;
+
+}
+
+onMounted(() => {
+    initFormData();
+});
+
 
 const activeNames = ref("ruler");
 const formData = reactive({
     showGrid: true,
     gridSize: 10,
     backgroundColor: "#F2F7FA",
-    backgroundImage: "",
+    backgroundImage: "https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg",
     showRuler: true,
     size: {
         width: 1920,
@@ -161,6 +172,9 @@ const formData = reactive({
 })
 const emit = defineEmits(["onChange"]);
 watch(formData, (newVal) => {
+
+    console.log('formData change',formData)
+
     emit('onChange', newVal)
 }, { deep: true })
 </script>

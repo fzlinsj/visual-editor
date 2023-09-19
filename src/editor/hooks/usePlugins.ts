@@ -99,7 +99,7 @@ export const usePlugins = (): any => {
                 }
                 return localUrl;
             }
-            data.forEach((plugin: any) => {
+            data?.forEach((plugin: any) => {
                 plugin.files.forEach((file: any) => {
                     const item = {
                         name: plugin.plugin_name + "_" + file.file_name,

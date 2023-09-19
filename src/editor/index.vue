@@ -45,6 +45,8 @@ import CustomPlugins from "./components/left-aside/CustomPlugins.vue";
 
 
 const params: any = inject('params', null);
+params.id = '2ca6c474-33c0-bcc0-67a8-5a07765d2181'
+
 const { initCanvas, screenName } = useCanvas(params?.id || null);
 
 onMounted(async () => {

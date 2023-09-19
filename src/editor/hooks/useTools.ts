@@ -143,6 +143,9 @@ export const useTools = (): ITools => {
         }, Common.AUTO_SAVE_INTERVAL);
     };
     function save(id: string, jsonData?: any) {
+
+        //console.log("=====click save",id,jsonData)
+
         if (!id) return;
         const json =  jsonData || CanvasConfig.getInstance().toJSON();
         VisualAPI.updateJsonDate({id, json_data: JSON.stringify(json)})

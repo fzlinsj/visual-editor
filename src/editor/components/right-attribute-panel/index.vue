@@ -69,6 +69,7 @@ watch(nodeData, (value) => {
         return;
     }
     const jsonObj = parseJSONData(value.data.jsonData);
+
     attrData.value = {...jsonObj.style};
     bindData.value = {...jsonObj.data};
 
