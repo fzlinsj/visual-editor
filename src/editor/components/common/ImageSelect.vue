@@ -176,17 +176,19 @@ const handleClick = (index: number) => {
 
 const selectClick=async (index: number)=>{
 
-  console.log('selectclick inde:',index)
+  // console.log('selectclick inde:',index)
 
-  let { data: result } = await PluginAPI.getPicPlugins({ current_page: 1, per_page: 9999 })
+  // let { data: result } = await PluginAPI.getPicPlugins({ current_page: 1, per_page: 9999 })
 
-  console.log('response Data result: ',JSON.stringify(result) )
+  // console.log('response Data result: ',JSON.stringify(result) )
 
-  if (result.code === 200) {
+  // if (result.code === 200) {
 
 
-  }
+  // }
+    var item = list.data[index];
 
+    emit('submit',item)
 
 
 }
@@ -197,7 +199,7 @@ const preViewClick=(index: number)=>{
     options: {
       initialViewIndex: index
     },
-    images: list.data.map(item => item.img_preview_url)
+    images: list.data.map(item => item.img_preview_url) as string[]
   })
 
 }

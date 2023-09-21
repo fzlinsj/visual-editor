@@ -69,12 +69,13 @@
 
 <script setup lang="ts">
 import { ref, reactive, watch,Ref,onMounted} from "vue";
-import { Picture as IconPicture,Edit as IconEdit,Select,Delete} from '@element-plus/icons-vue'
+import { Picture as IconPicture,Edit as IconEdit,Select,Delete, TrophyBase} from '@element-plus/icons-vue'
 import ImageSelect from "../../common/ImageSelect.vue";
 import GalleryItem from '@/editor/components/common/gallery-item.vue'
 import { ImageInter } from '@/editor/components/common/interface';
 import { CanvasConfig } from "@/editor/config"
 import { Background } from "@antv/x6/lib/registry/background";
+import { json } from "stream/consumers";
 
 const imageSelectDialogVisible = ref(false);
 const showCustomPlugins = () => {
@@ -85,7 +86,20 @@ const handleChange = (value: number) => {
   console.log(value)
 }
 
-const imageSelectSubmit = () => {
+const imageSelectSubmit = (item:ImageInter) => {
+
+    console.log('img select:'+JSON.stringify(item))
+
+    imageData.value.img_preview_url = item.img_preview_url;
+    imageData.value.img_url = item.img_url;
+    //formData.backgroundImage = item.img_url;
+
+    if(typeof(item.img_preview_url)==='string'){
+        formData.backgroundImage = item.img_preview_url
+    }
+    
+    console.log('====formData:',formData)
+
 }
 
 const selectClick=()=>{
@@ -99,7 +113,7 @@ const delClick=()=>{
 
 const imageData: Ref<ImageInter> = ref(
     { 
-    id: '1111111111',
+    id: '0',
     // 图片名称
     img_name: 'string',
     // 图片宽度
@@ -117,9 +131,11 @@ const imageData: Ref<ImageInter> = ref(
     // 是否选中
     checked: false,
     // 创建时间
-    createdAt: '2020-10-01 11:00:00',
+    createdAt: '',
     // 更新时间
-    updatedAt:'2020-10-01 11:00:00',
+    updatedAt:'',
+
+    file_url:'',
     }
 )
 
@@ -143,13 +159,33 @@ const editItemTag = (data: ImageInter) => {
 const initFormData=()=>{
 
     const canvasConfig: ICanvasConfig = CanvasConfig.getInstance();
-    var graphOption = canvasConfig.getGrahOptions();
+    var graphOption = canvasConfig.getGrahOptions() as ICanvasConfig.GraphOptions;
     var backgroundOptions = graphOption as Background.Options;
+
+    console.log('===backgroundOptions',JSON.stringify(graphOption) ,graphOption)
+
     formData.showGrid = graphOption.showGrid;
     formData.gridSize = graphOption.gridSize;
     formData.showRuler = graphOption.showRuler;
-    formData.backgroundColor = graphOption.background.color as string;
-    formData.backgroundImage = backgroundOptions.image as string;
+
+    if(typeof(graphOption.background.color) === "string"){
+
+        formData.backgroundColor = graphOption.background.color;
+    }
+
+    if(typeof(backgroundOptions.image) === "string"){
+
+        formData.backgroundImage = backgroundOptions.image;
+
+        imageData.value.img_preview_url = formData.backgroundImage;
+
+        imageData.value.img_url = formData.backgroundImage;
+
+    }
+   
+    
+
+    console.log('===initFormData',formData)
 
 }
 
@@ -163,7 +199,7 @@ const formData = reactive({
     showGrid: true,
     gridSize: 10,
     backgroundColor: "#F2F7FA",
-    backgroundImage: "https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg",
+    backgroundImage: "",
     showRuler: true,
     size: {
         width: 1920,
