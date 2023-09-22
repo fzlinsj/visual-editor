@@ -60,7 +60,7 @@ class CanvasConfig implements ICanvasConfig {
 
     rulerCallbacks: ICanvasConfig.RulerCallback[] = [];
 
-    private renderJsonCallback: Function = () => {};
+    private renderJsonCallback: Function = (json:any) => {};
 
     private constructor(containerId: string, options?: ICanvasConfig.Options) {
         this.containerId = containerId;
@@ -691,6 +691,8 @@ class CanvasConfig implements ICanvasConfig {
         if (!this.graph) 
             throw new Error('Graph is undefined.');
         this.rulerCallbacks.forEach(callback => callback({ show }) );
+
+        this.graphOptions.showRuler = show;
     }
 
     public setBackground(options: ICanvasConfig.BackgroundOptions): void {
@@ -745,7 +747,9 @@ class CanvasConfig implements ICanvasConfig {
         }
         console.log('renderJSOn', json)
         this.graph.fromJSON(json);
-        this.renderJsonCallback && this.renderJsonCallback();
+
+
+        this.renderJsonCallback && this.renderJsonCallback(json);
     }
 
     public setRenderJsonCallback(callback: Function) {

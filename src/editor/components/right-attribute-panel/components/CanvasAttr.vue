@@ -162,35 +162,37 @@ const initFormData=()=>{
 
     const canvasConfig: ICanvasConfig = CanvasConfig.getInstance();
 
-    canvasConfig.setRenderJsonCallback(()=>{
+    canvasConfig.setRenderJsonCallback((json:any)=>{
 
-        var graphOption = canvasConfig.getGrahOptions() as ICanvasConfig.GraphOptions;
-        var backgroundOptions = graphOption as Background.Options;
+        console.log('load json callback',json)
 
-        console.log('===backgroundOptions',JSON.stringify(graphOption) ,graphOption)
+        // var graphOption = canvasConfig.getGrahOptions() as ICanvasConfig.GraphOptions;
+        // var backgroundOptions = graphOption as Background.Options;
 
-        formData.showGrid = graphOption.showGrid;
-        formData.gridSize = graphOption.gridSize;
-        formData.showRuler = graphOption.showRuler;
+        // console.log('===backgroundOptions',JSON.stringify(graphOption) ,graphOption)
 
-        if(typeof(graphOption.background.color) === "string"){
+        // formData.showGrid = graphOption.showGrid;
+        // formData.gridSize = graphOption.gridSize;
+        // formData.showRuler = graphOption.showRuler;
 
-            formData.backgroundColor = graphOption.background.color;
-        }
+        // if(typeof(graphOption.background.color) === "string"){
 
-        if(typeof(backgroundOptions.image) === "string"){
+        //     formData.backgroundColor = graphOption.background.color;
+        // }
 
-            formData.backgroundImage = backgroundOptions.image;
+        // if(typeof(backgroundOptions.image) === "string"){
 
-            imageData.value.img_preview_url = formData.backgroundImage;
+        //     formData.backgroundImage = backgroundOptions.image;
 
-            imageData.value.img_url = formData.backgroundImage;
+        //     imageData.value.img_preview_url = formData.backgroundImage;
 
-        }
+        //     imageData.value.img_url = formData.backgroundImage;
+
+        // }
     
         
 
-        console.log('===initFormData',formData)
+        // console.log('===initFormData',formData)
 
 
 

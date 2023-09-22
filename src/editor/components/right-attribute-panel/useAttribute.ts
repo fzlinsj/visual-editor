@@ -23,7 +23,7 @@ export const useAttribute = () => {
             angle: 20,
         }
         canvasConfig.setBackground(background);
-        console.log('onCanvasAttrChange', data, data.showGrid, data.gridSize)
+        console.log('onCanvasAttrChange', data, data.showGrid, data.gridSize,data.showRuler)
     }
 
     return {
