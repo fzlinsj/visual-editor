@@ -111,6 +111,8 @@ const selectClick=()=>{
 const delClick=()=>{
     console.log('enter delClick')
     formData.backgroundImage = ""
+    imageData.value.img_preview_url = "";
+    imageData.value.img_url = "";
 }
 
 const imageData: Ref<ImageInter> = ref(
