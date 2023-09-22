@@ -95,7 +95,8 @@ const imageSelectSubmit = (item:ImageInter) => {
     //formData.backgroundImage = item.img_url;
 
     if(typeof(item.img_preview_url)==='string'){
-        formData.backgroundImage = item.img_preview_url
+        
+        formData.backgroundImage = item.img_preview_url as string
     }
     
     console.log('====formData:',formData)
@@ -108,7 +109,8 @@ const selectClick=()=>{
 }
 
 const delClick=()=>{
-    formData.backgroundImage = "https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg"
+    console.log('enter delClick')
+    formData.backgroundImage = ""
 }
 
 const imageData: Ref<ImageInter> = ref(
@@ -159,33 +161,43 @@ const editItemTag = (data: ImageInter) => {
 const initFormData=()=>{
 
     const canvasConfig: ICanvasConfig = CanvasConfig.getInstance();
-    var graphOption = canvasConfig.getGrahOptions() as ICanvasConfig.GraphOptions;
-    var backgroundOptions = graphOption as Background.Options;
 
-    console.log('===backgroundOptions',JSON.stringify(graphOption) ,graphOption)
+    canvasConfig.setRenderJsonCallback(()=>{
 
-    formData.showGrid = graphOption.showGrid;
-    formData.gridSize = graphOption.gridSize;
-    formData.showRuler = graphOption.showRuler;
+        var graphOption = canvasConfig.getGrahOptions() as ICanvasConfig.GraphOptions;
+        var backgroundOptions = graphOption as Background.Options;
 
-    if(typeof(graphOption.background.color) === "string"){
+        console.log('===backgroundOptions',JSON.stringify(graphOption) ,graphOption)
 
-        formData.backgroundColor = graphOption.background.color;
-    }
+        formData.showGrid = graphOption.showGrid;
+        formData.gridSize = graphOption.gridSize;
+        formData.showRuler = graphOption.showRuler;
 
-    if(typeof(backgroundOptions.image) === "string"){
+        if(typeof(graphOption.background.color) === "string"){
 
-        formData.backgroundImage = backgroundOptions.image;
+            formData.backgroundColor = graphOption.background.color;
+        }
 
-        imageData.value.img_preview_url = formData.backgroundImage;
+        if(typeof(backgroundOptions.image) === "string"){
 
-        imageData.value.img_url = formData.backgroundImage;
+            formData.backgroundImage = backgroundOptions.image;
 
-    }
-   
+            imageData.value.img_preview_url = formData.backgroundImage;
+
+            imageData.value.img_url = formData.backgroundImage;
+
+        }
     
+        
 
-    console.log('===initFormData',formData)
+        console.log('===initFormData',formData)
+
+
+
+
+    })
+
+   
 
 }
 

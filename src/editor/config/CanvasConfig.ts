@@ -16,6 +16,7 @@ import { ICanvas } from '@antv/g2/lib/dependents';
 
 import CellMove from '@/utils/CellMove';
 import {useIs3DMode} from "@/store/modules/is3DStroe";
+import { isNil } from 'lodash';
 /**
  * @author cxs
  * @date 2023-04-19
@@ -58,6 +59,8 @@ class CanvasConfig implements ICanvasConfig {
     screenRect: { width: number, height: number } = Common.DEFAULT_SCREEN_RECT;
 
     rulerCallbacks: ICanvasConfig.RulerCallback[] = [];
+
+    private renderJsonCallback: Function = () => {};
 
     private constructor(containerId: string, options?: ICanvasConfig.Options) {
         this.containerId = containerId;
@@ -742,6 +745,11 @@ class CanvasConfig implements ICanvasConfig {
         }
         console.log('renderJSOn', json)
         this.graph.fromJSON(json);
+        this.renderJsonCallback && this.renderJsonCallback();
+    }
+
+    public setRenderJsonCallback(callback: Function) {
+        this.renderJsonCallback = callback;
     }
 
     public toJSON(): { cells: Cell.Properties[] } | { graph: any } {

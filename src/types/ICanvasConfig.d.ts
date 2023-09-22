@@ -116,6 +116,11 @@ declare interface ICanvasConfig {
      * @param json 节点数据
      */
     renderJSON(json: any): void;
+    /**
+     * 渲染节点数据结束回调
+     * @param callback 回调函数
+     */
+    setRenderJsonCallback(callback: Function):void;
 
     /**
      * 画布自适应
