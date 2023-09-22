@@ -164,37 +164,19 @@ const initFormData=()=>{
 
     canvasConfig.setRenderJsonCallback((json:any)=>{
 
-        console.log('load json callback',json)
 
-        // var graphOption = canvasConfig.getGrahOptions() as ICanvasConfig.GraphOptions;
-        // var backgroundOptions = graphOption as Background.Options;
+        formData.showGrid = json.graph.showGrid;
+        formData.gridSize = json.graph.gridSize;
+        formData.showRuler = json.graph.showRuler;
+        formData.backgroundColor = json.graph.background.color;
 
-        // console.log('===backgroundOptions',JSON.stringify(graphOption) ,graphOption)
+        formData.backgroundImage = json.graph.background.image;
 
-        // formData.showGrid = graphOption.showGrid;
-        // formData.gridSize = graphOption.gridSize;
-        // formData.showRuler = graphOption.showRuler;
+        imageData.value.img_preview_url = formData.backgroundImage;
 
-        // if(typeof(graphOption.background.color) === "string"){
-
-        //     formData.backgroundColor = graphOption.background.color;
-        // }
-
-        // if(typeof(backgroundOptions.image) === "string"){
-
-        //     formData.backgroundImage = backgroundOptions.image;
-
-        //     imageData.value.img_preview_url = formData.backgroundImage;
-
-        //     imageData.value.img_url = formData.backgroundImage;
-
-        // }
+        imageData.value.img_url = formData.backgroundImage;
     
-        
-
-        // console.log('===initFormData',formData)
-
-
+        console.log('===initFormData',formData)
 
 
     })
