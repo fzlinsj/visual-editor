@@ -331,12 +331,20 @@ export const useEvents = () => {
         }, 200);
     }
 
+    const onTestChange = (data: any) => {
+
+        console.log('=useEvents.onTestChange', data)
+
+    }
+
+
+
     /**
      * 用户自定义组件的样式和绑定的数据改变后，会调用这个方法，更新画布上的节点数据
      * @param dataT
      */
     const onChange = (data: any) => {
-        console.log('useEvents.onChange1', data)
+        console.log('=================useEvents.onChange1', data)
         let jsonStr = "{}";
         if (currentNode?.getData()) {
             // 从节点的附加数据中获取JSON字符串
@@ -420,7 +428,7 @@ export const useEvents = () => {
 
     return {
         isNode, attributeCpt, dataCpt, nodeData,isEdge,nodeId,edgeData,
-        initEvents, onChange, onBaseChange, cellList
+        initEvents, onChange, onBaseChange, cellList,onTestChange
     }
 }
 
