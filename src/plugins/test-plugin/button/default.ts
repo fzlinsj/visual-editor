@@ -4,5 +4,11 @@ export const styleData = {
     color: '#000000',
     backgroundColor: '',
     borderWidth: 0,
-    borderColor: '#000000'
+    borderColor: '#000000',
+    btnType:'primary',
+    isPlain:false,
+    isRound:false,
+    size:'large',
+    circle:false,
+
 }
