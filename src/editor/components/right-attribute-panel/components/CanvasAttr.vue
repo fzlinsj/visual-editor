@@ -59,6 +59,10 @@
             <el-switch v-model="formData.showRuler" />
         </el-form-item>
 
+        <el-form-item label="图标测试:">
+            <ElIconPicker v-model="icon"></ElIconPicker>
+        </el-form-item>
+
         <!-- <el-form-item label="页面宽度:">
             <el-input-number v-model="formData.size.width" @change="handleChange" :min="1" :max="2000" label="页面宽度"></el-input-number>
         </el-form-item> -->
@@ -76,6 +80,9 @@ import { ImageInter } from '@/editor/components/common/interface';
 import { CanvasConfig } from "@/editor/config"
 import { Background } from "@antv/x6/lib/registry/background";
 import { json } from "stream/consumers";
+import ElIconPicker from "@/editor/components/common/el-icon-picker.vue"
+
+const icon = ref<string>('');
 
 const imageSelectDialogVisible = ref(false);
 const showCustomPlugins = () => {
