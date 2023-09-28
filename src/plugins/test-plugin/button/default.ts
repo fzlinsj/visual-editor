@@ -10,5 +10,5 @@ export const styleData = {
     isRound:false,
     size:'large',
     circle:false,
-
+    icon:'Edit'
 }

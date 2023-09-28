@@ -15,6 +15,7 @@ import * as Plugins from './dependence';
 import * as Global from '@/utils/global'
 import 'viewerjs/dist/viewer.css'
 import VueViewer, { api } from 'v-viewer'
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
 // 全局方法
 Global.install();
@@ -28,6 +29,14 @@ System.set('lib:axios', axios)
 
 
 const app = createApp(App);
+
+
+// 全局挂载和注册 element-plus 的所有 icon
+app.config.globalProperties.$icons = []
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+    app.config.globalProperties.$icons.push(key)
+    app.component(key, component)
+}
 
 app.component('tp-color-picker', TpColorPicker);
 // 使用 Element Plus

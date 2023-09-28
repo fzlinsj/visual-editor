@@ -56,7 +56,9 @@
                     <el-switch v-model="formData.circle" />
                 </el-form-item>
 
-               
+                <el-form-item label="图标">
+                    <ElIconPicker v-model="formData.icon"></ElIconPicker>
+                </el-form-item>
 
             </el-form>
         </el-collapse-item>
@@ -64,9 +66,10 @@
 </template>
   
 <script>
+
 import { styleData } from './default'
 import { ref } from 'vue'
-
+import ElIconPicker from "@/editor/components/common/el-icon-picker.vue"
 
 export default {
     props: {
