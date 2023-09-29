@@ -51,6 +51,7 @@ import { ref,reactive,watch, watchEffect} from 'vue'
 import ElIconPicker from "@/editor/components/common/el-icon-picker.vue"
 
 const activeNames = ref<String>('style');
+
 const formData = reactive({
     fontSize: 20,
     color: '#000000',
@@ -95,6 +96,29 @@ watch(formData, (val) => {
     });
 
 }, { deep: true })
+
+watch(props.data, (val) => {
+
+    console.log('text.Attribute.watch.data', val)
+    const jsonStr = JSON.stringify(val);
+    if (jsonStr !== '{}') {
+        const jsonObj = JSON.parse(jsonStr);
+        jsonObj.fontSize = jsonObj.fontSize?.toString().replace("px", "")
+        jsonObj.borderWidth = jsonObj.borderWidth?.toString().replace("px", "")
+        formData.fontSize = jsonObj.fontSize;
+        formData.color = jsonObj.color;
+        formData.backgroundColor = jsonObj.backgroundColor;
+        formData.borderWidth = jsonObj.borderWidth;
+        formData.borderColor = jsonObj.borderColor;
+        formData.btnType = jsonObj.btnType;
+        formData.isPlain = jsonObj.isPlain;
+        formData.isRound = jsonObj.isRound;
+        formData.size = jsonObj.size;
+        formData.circle = jsonObj.circle;
+        formData.icon = jsonObj.icon;
+    }
+
+}, { deep: true,immediate:true })
 
 
 </script>

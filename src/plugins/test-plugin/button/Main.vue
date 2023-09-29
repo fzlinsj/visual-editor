@@ -8,6 +8,7 @@
         :round ="myStyle.isRound"
         :size = "myStyle.size"
         :circle = "myStyle.circle"
+        :icon="myStyle.icon"
         :plain="myStyle.isPlain">
         {{ textValue}}
       </el-button>
