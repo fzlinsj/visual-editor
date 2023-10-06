@@ -53,6 +53,7 @@
 
 import { ref,reactive,watch, watchEffect} from 'vue'
 import ElIconPicker from "@/editor/components/common/el-icon-picker.vue"
+import { json } from 'stream/consumers';
 
 const activeNames = ref<String>('style');
 
@@ -96,6 +97,13 @@ const props = defineProps({
 const emit = defineEmits(["onChange"]);
 watch(formData, (val) => {
     // 当自定义属性改变时，传递给Main.vue的style属性
+    console.log('watch formData data change',JSON.stringify(val) )
+
+    if(!val.useIcon){
+
+        formData.icon = '';
+    }
+
     emit("onChange", {
         style: { ...val, fontSize: val.fontSize + 'px', borderWidth: val.borderWidth + 'px' }
     });
@@ -104,7 +112,7 @@ watch(formData, (val) => {
 
 watch(props.data, (val) => {
 
-    console.log('text.Attribute.watch.data', val)
+    console.log('wathc props.data change', val)
     const jsonStr = JSON.stringify(val);
     if (jsonStr !== '{}') {
         const jsonObj = JSON.parse(jsonStr);
