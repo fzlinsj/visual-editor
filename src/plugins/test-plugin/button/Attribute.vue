@@ -36,7 +36,11 @@
                     <el-switch v-model="formData.circle" />
                 </el-form-item>
 
-                <el-form-item label="图标">
+                <el-form-item label="使用图标">
+                    <el-switch v-model="formData.useIcon" />
+                </el-form-item>
+
+                <el-form-item label="图标" v-if="formData.useIcon">
                     <ElIconPicker v-model="formData.icon"></ElIconPicker>
                 </el-form-item>
 
@@ -63,6 +67,7 @@ const formData = reactive({
     isRound:false,
     size:'large',
     circle:false,
+    useIcon:false,
     icon:''
 })  
 
@@ -105,17 +110,8 @@ watch(props.data, (val) => {
         const jsonObj = JSON.parse(jsonStr);
         jsonObj.fontSize = jsonObj.fontSize?.toString().replace("px", "")
         jsonObj.borderWidth = jsonObj.borderWidth?.toString().replace("px", "")
-        formData.fontSize = jsonObj.fontSize;
-        formData.color = jsonObj.color;
-        formData.backgroundColor = jsonObj.backgroundColor;
-        formData.borderWidth = jsonObj.borderWidth;
-        formData.borderColor = jsonObj.borderColor;
-        formData.btnType = jsonObj.btnType;
-        formData.isPlain = jsonObj.isPlain;
-        formData.isRound = jsonObj.isRound;
-        formData.size = jsonObj.size;
-        formData.circle = jsonObj.circle;
-        formData.icon = jsonObj.icon;
+        Object.assign(formData, jsonObj);
+
     }
 
 }, { deep: true,immediate:true })
