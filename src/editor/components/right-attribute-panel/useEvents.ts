@@ -30,6 +30,8 @@ export const useEvents = () => {
     let attributeCpt = shallowRef<any>(null);
     // 当前节点的Data组件
     let dataCpt = shallowRef<any>(null);
+    //当前节点的Event组件
+    let eventCpt = shallowRef<any>(null);
     // 当前节点的组件
     let component: any = {};
     // 当前节点的数据
@@ -193,6 +195,9 @@ export const useEvents = () => {
                 attributeCpt.value = component.Attribute;
                 // 当前组件的Data组件
                 dataCpt.value = component.Data;
+                //当前组件的Event组件
+                eventCpt.value = component.Event;
+
                 for (const key in component.Main.methods) {
                     console.log('element.key', key)
                     if (Object.prototype.hasOwnProperty.call(component.Main.methods, key)) {
@@ -219,6 +224,7 @@ export const useEvents = () => {
                         //如果点击的是边 ;  *@author; 王炳宏  2023-05-23
                         graph.clearTransformWidgets();
                         dataCpt.value = null;
+                        eventCpt.value = null;
                         isEdge.value=true;
                         isNode.value=false
                         setEdgeData(data)
@@ -232,6 +238,7 @@ export const useEvents = () => {
                     isNode.value = true;
                     attributeCpt.value = null;
                     dataCpt.value = null;
+                    eventCpt.value = null;
 
                 }
             }
@@ -427,7 +434,7 @@ export const useEvents = () => {
     }
 
     return {
-        isNode, attributeCpt, dataCpt, nodeData,isEdge,nodeId,edgeData,
+        isNode, attributeCpt, dataCpt, eventCpt,nodeData,isEdge,nodeId,edgeData,
         initEvents, onChange, onBaseChange, cellList,onTestChange
     }
 }

@@ -1,5 +1,5 @@
 import { Text_Attribute, Text_Data, Text_Icon, Text_Main } from "./text";
-import { Button_Attribute, Button_Data, Button_Main, Button_Icon } from "./button";
+import { Button_Attribute, Button_Data, Button_Main, Button_Icon,Button_Event } from "./button";
 
 export default {
     views: [
@@ -12,7 +12,7 @@ export default {
           size: { width: 100, height: 40 },
           Main: Text_Main,
           Attribute: Text_Attribute,
-          Data: Text_Data,
+          Data: Text_Data
         },
         {
           name: "按钮",
@@ -24,6 +24,7 @@ export default {
           Main: Button_Main,
           Attribute: Button_Attribute,
           Data: Button_Data,
+          Event:Button_Event
         }
     ],
   };

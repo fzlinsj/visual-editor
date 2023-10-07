@@ -21,6 +21,10 @@
                     <BaseData :data="bindData" @onChange="onChange"/>
                 </component>
             </el-tab-pane>
+            <!-- 组件事件 -->
+            <el-tab-pane label="事件" name="compEvent" v-if="!isEdge && isNode">
+                <component v-if="isNode" :is="eventCpt" :data="eventData"  @onChange="onChange"/>
+            </el-tab-pane>
             <!-- 图层 -->
             <el-tab-pane label="图层" name="layer">
                 <LayerAttr :nodeData='nodeData' :cellList='cellList' :initEvents='initEvents'/>
@@ -44,7 +48,7 @@ import { parseJSONData } from '@/utils';
 
 const activeName = ref("attr");
 let {
-    isNode, attributeCpt, dataCpt, nodeData,edgeData,
+    isNode, attributeCpt, dataCpt,eventCpt,nodeData,edgeData,
     isEdge,nodeId,
     initEvents, onChange, onBaseChange,
     cellList
@@ -54,7 +58,8 @@ const cellIndex=ref(-1)
 const attrData = ref<any>({});
 // 数据绑定
 const bindData = ref<any>({});
-
+//事件数据
+const eventData = ref<any>({});
 
 
 
@@ -65,12 +70,14 @@ watch(nodeData, (value) => {
     if (!value.data) {
         attrData.value = {};
         bindData.value = {};
+        eventData.value ={};
         return;
     }
     const jsonObj = parseJSONData(value.data.jsonData);
 
     attrData.value = {...jsonObj.style};
     bindData.value = {...jsonObj.data};
+    eventData.value ={...jsonObj.event};
 
 })
 
