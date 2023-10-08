@@ -1,9 +1,9 @@
 <template>
-    <el-collapse v-model="activeNames" v-for="(device, index) in eventData" >
+    <el-collapse v-model="activeNames" >
         <el-collapse-item title="事件" name="event">
-            <el-form v-model="device" label-width="80px" label-position="left">
+            <el-form v-model="formData" label-width="80px" label-position="left">
                 <el-form-item label="事件类型">
-                    <el-select v-model="device.eventType" placeholder="请选择事件类型">
+                    <el-select v-model="formData.eventType" placeholder="请选择事件类型">
                     <el-option
                         v-for="item in eventPotions"
                         :key="item.value"
@@ -13,7 +13,7 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item label="动作类型">
-                    <el-select v-model="device.actionType" placeholder="请选择动作类型">
+                    <el-select v-model="formData.actionType" placeholder="请选择动作类型">
                     <el-option
                         v-for="item in actionPotions"
                         :key="item.value"
@@ -23,26 +23,27 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item label="外部网址">
-                    <el-input type="text" v-model="device.externalPage"></el-input>
+                    <el-input type="text" v-model="formData.externalPage"></el-input>
                 </el-form-item>
+
                 <el-form-item label="弹窗">
-                    <el-switch v-model="device.isPagePopUp" />
+                    <el-switch v-model="formData.isPagePopUp" />
                 </el-form-item>
 
                 <el-form-item label="自动关闭">
-                    <el-switch v-model="device.isPageAutoClose" />
+                    <el-switch v-model="formData.isPageAutoClose" />
                 </el-form-item>
 
                 <el-form-item label="宽度">
-                    <el-input type="number" v-model="device.pageWidth"></el-input>
+                    <el-input type="number" v-model="formData.pageWidth"></el-input>
                 </el-form-item>
 
                 <el-form-item label="高度">
-                    <el-input type="text" v-model="device.pageHeight"></el-input>
+                    <el-input type="text" v-model="formData.pageHeight"></el-input>
                 </el-form-item>
 
                 <el-form-item label="标题">
-                    <el-input type="text" v-model="device.pageTitle"></el-input>
+                    <el-input type="text" v-model="formData.pageTitle"></el-input>
                 </el-form-item>
 
             </el-form>
@@ -62,8 +63,7 @@ import { json } from 'stream/consumers';
 
 const activeNames = ref<String>('event');
 
-const eventData = ref<any>([
-  {
+const formData = reactive({
     eventType: 'upSpring',
     actionType:'animation',
     externalPage:'',
@@ -71,10 +71,10 @@ const eventData = ref<any>([
     isPageAutoClose:true,
     pageWidth:100,
     pageHeight:100,
-    pageTitle:''
-  }
-])
+    pageTitle:'',
 
+
+})  
 
 const eventPotions = reactive([
     { value: 'click', label: '单击' },
@@ -85,7 +85,6 @@ const eventPotions = reactive([
     { value: 'moveOut', label: '鼠标移出' },
 
 ])
-
 const actionPotions = reactive([
     { value: 'openWeb', label: '打开网页' },
     { value: 'setVariable', label: '设置变量' },
