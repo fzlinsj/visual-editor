@@ -9,7 +9,6 @@
                         <Delete />
                     </el-icon>
                 </div>
-
             </template>
             <el-form>
                 <el-form-item label="选择项目">
@@ -24,14 +23,6 @@
                         <el-option v-for="item in groupOptions" :key="item.value" :label="item.label" :value="item.value" />
                     </el-select>
                 </el-form-item>
-
-                <!-- <el-form-item v-if="state.groupId" label="选择设备">
-                    <el-select filterable v-model="state.deviceId" placeholder="选择设备">
-                        <el-option v-for="item in deviceOptions" :key="item.value" 
-                        :label="item.label + (item.pluginId ? ' [已绑定]' : '')" 
-                        :value="item.value" />
-                    </el-select>
-                </el-form-item> -->
 
                 <el-form-item v-if="state.groupId" label="选择设备">
                     <el-cascader ref="deviceRef" style="width: 100%;margin-right:10px" v-model="state.deviceId"

@@ -23,7 +23,9 @@
             </el-tab-pane>
             <!-- 组件事件 -->
             <el-tab-pane label="事件" name="compEvent" v-if="!isEdge && isNode">
-                <component v-if="isNode" :is="eventCpt" :data="eventData"  @onChange="onChange"/>
+                <component v-if="isNode" :is="eventCpt" :data="eventData"  @onChange="onChange">
+                    <BaseEvent :data="bindData" @onChange="onChange"/>
+                </component>
             </el-tab-pane>
             <!-- 图层 -->
             <el-tab-pane label="图层" name="layer">
@@ -41,6 +43,7 @@ import BaseAttr from "./components/BaseAttr.vue";
 import LineAttr from "./components/LineAttr.vue";
 import LayerAttr from "./components/LayerAttr.vue";
 import BaseData from './components/baseData/index.vue';
+import BaseEvent from './components/baseEvent/index.vue';
 import BaseNodeAttr from "./components/BaseNodeAttr.vue"
 import { useEvents } from "./useEvents"
 import { useAttribute } from "./useAttribute"

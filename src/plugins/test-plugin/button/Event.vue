@@ -1,58 +1,11 @@
 <template>
-    <el-collapse v-model="activeNames" >
-        <el-collapse-item title="事件" name="event">
-            <el-form v-model="formData" label-width="80px" label-position="left">
-                <el-form-item label="事件类型">
-                    <el-select v-model="formData.eventType" placeholder="请选择事件类型">
-                    <el-option
-                        v-for="item in eventPotions"
-                        :key="item.value"
-                        :label="item.label"
-                        :value="item.value"
-                    ></el-option>
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="动作类型">
-                    <el-select v-model="formData.actionType" placeholder="请选择动作类型">
-                    <el-option
-                        v-for="item in actionPotions"
-                        :key="item.value"
-                        :label="item.label"
-                        :value="item.value"
-                    ></el-option>
-                    </el-select>
-                </el-form-item>
-                <el-form-item label="外部网址">
-                    <el-input type="text" v-model="formData.externalPage"></el-input>
-                </el-form-item>
-
-                <el-form-item label="弹窗">
-                    <el-switch v-model="formData.isPagePopUp" />
-                </el-form-item>
-
-                <el-form-item label="自动关闭">
-                    <el-switch v-model="formData.isPageAutoClose" />
-                </el-form-item>
-
-                <el-form-item label="宽度">
-                    <el-input type="number" v-model="formData.pageWidth"></el-input>
-                </el-form-item>
-
-                <el-form-item label="高度">
-                    <el-input type="text" v-model="formData.pageHeight"></el-input>
-                </el-form-item>
-
-                <el-form-item label="标题">
-                    <el-input type="text" v-model="formData.pageTitle"></el-input>
-                </el-form-item>
-
-            </el-form>
-        </el-collapse-item>
-    </el-collapse>
-
-
-    <el-button style="width:100%" @click="addDevice" >新增事件</el-button>
-    
+    <div style="height:100%">
+    <el-row style="height:100%">
+        <div class="w-full">
+          <slot></slot>
+        </div>
+    </el-row>
+  </div>
 </template>
   
 <script setup lang="ts">
