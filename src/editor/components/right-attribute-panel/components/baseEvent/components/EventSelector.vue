@@ -35,6 +35,13 @@
                     <el-input type="text" v-model="formData.externalPage"></el-input>
                 </el-form-item>
 
+                <el-form-item label="选可视化">
+                    <el-select filterable v-model="formData.visualizationId" placeholder="选择可视化">
+                        <el-option v-for="item in visualizationOptions" :key="item.value" :label="item.label"
+                            :value="item.value" />
+                    </el-select>
+                </el-form-item>
+
                 <el-form-item label="弹窗">
                     <el-switch v-model="formData.isPagePopUp" />
                 </el-form-item>
@@ -63,7 +70,7 @@
 <script setup lang="ts">
 import { ref, reactive, watch, toRaw, onMounted, watchEffect } from "vue";
 import { Delete } from '@element-plus/icons-vue'
-import DeviceAPI from "@/api/device";
+import VisualAPI from "@/api/visual";
 
 const props = defineProps({
     index: Number,
@@ -71,6 +78,8 @@ const props = defineProps({
 });
 const emit = defineEmits(["delete", 'change']);
 const activeNames = ref<string[]>(['style']);
+
+const visualizationOptions = ref<any>([]);
 
 const formData = reactive({
     eventType: 'upSpring',
@@ -81,6 +90,7 @@ const formData = reactive({
     pageWidth:100,
     pageHeight:100,
     pageTitle:'',
+    visualizationId:'',
 })  
 
 const eventPotions = reactive([
@@ -131,7 +141,35 @@ watch(() => props.data, async (val: any) => {
 
 }, { deep: true, immediate: true });
 
+
+/**
+ * 获取项目列表
+ * @returns 
+ */
+ async function getJsonDataById() {
+    return new Promise((resolve, reject) => {
+        VisualAPI.getJsonDataById(null)
+            .then(({ data: result }) => {
+
+                console.log('getJsonDataById result',result)
+
+
+                if (result.code === 200) {
+
+                    console.log('getJsonDataById result.data',result.data)
+
+                    const { data } = result.data;
+                    const options = data.map((item: any) => ({ value: item.id, label: item.name }))
+                    resolve(options)
+                }
+            })
+
+    })
+}
+
 onMounted(async () => {
+
+    visualizationOptions.value = await getJsonDataById();
     
 });
 
