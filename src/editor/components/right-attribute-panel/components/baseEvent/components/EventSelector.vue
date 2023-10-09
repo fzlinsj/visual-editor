@@ -31,35 +31,70 @@
                     ></el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="外部网址">
+
+                <!-- 打开网页 -->
+
+                <el-form-item label="网页类型" v-if="formData.actionType=='openWeb'">
+                    <el-select v-model="formData.webPage" placeholder="请选择类型">
+                    <el-option
+                        v-for="item in webPage"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value"
+                    ></el-option>
+                    </el-select>
+                </el-form-item>
+
+                <el-form-item label="外部网址" v-if="formData.actionType=='openWeb'&&formData.webPage=='externalPage'">
                     <el-input type="text" v-model="formData.externalPage"></el-input>
                 </el-form-item>
 
-                <el-form-item label="选可视化">
+                <el-form-item label="选可视化" v-if="formData.actionType=='openWeb'&&formData.webPage=='innerPage'">
                     <el-select filterable v-model="formData.visualizationId" placeholder="选择可视化">
                         <el-option v-for="item in visualizationOptions" :key="item.value" :label="item.label"
                             :value="item.value" />
                     </el-select>
                 </el-form-item>
 
-                <el-form-item label="弹窗">
+                <el-form-item label="是否弹窗" v-if="formData.actionType=='openWeb'">
                     <el-switch v-model="formData.isPagePopUp" />
                 </el-form-item>
 
-                <el-form-item label="自动关闭">
+                <el-form-item label="自动关闭" v-if="formData.actionType=='openWeb'">
                     <el-switch v-model="formData.isPageAutoClose" />
                 </el-form-item>
 
-                <el-form-item label="宽度">
+                <el-form-item label="页面宽度" v-if="formData.actionType=='openWeb'&&formData.webPage=='externalPage'">
                     <el-input type="number" v-model="formData.pageWidth"></el-input>
                 </el-form-item>
 
-                <el-form-item label="高度">
-                    <el-input type="text" v-model="formData.pageHeight"></el-input>
+                <el-form-item label="页面高度" v-if="formData.actionType=='openWeb'&&formData.webPage=='externalPage'">
+                    <el-input type="number" v-model="formData.pageHeight"></el-input>
                 </el-form-item>
 
-                <el-form-item label="标题">
+                <el-form-item label="页面标题" v-if="formData.actionType=='openWeb'&&formData.webPage=='externalPage'">
                     <el-input type="text" v-model="formData.pageTitle"></el-input>
+                </el-form-item>
+
+                <!-- 设置变量 -->
+
+                <!-- 显示或隐藏元素 -->
+                <el-form-item label="显示元素" v-if="formData.actionType=='showOrHideElement'">
+                    <el-select
+                    v-model="formData.showElement"
+                    multiple
+                    collapse-tags
+                    collapse-tags-tooltip
+                    placeholder="选择要显示的元素层级"
+                    style="width: 240px"
+                    >
+                    <el-option
+                    v-for="item in showLayerIndexOption"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                    />
+                    </el-select>
                 </el-form-item>
 
             </el-form>
@@ -74,16 +109,23 @@ import VisualAPI from "@/api/visual";
 
 const props = defineProps({
     index: Number,
-    data: Object
+    data: Object,
+    cellList: {
+      type: Array,
+      default: () => ([])
+    }
 });
 const emit = defineEmits(["delete", 'change']);
 const activeNames = ref<string[]>(['style']);
 
 const visualizationOptions = ref<any>([]);
+const showLayerIndexOption = ref<any>([]);
+
 
 const formData = reactive({
     eventType: 'upSpring',
-    actionType:'animation',
+    actionType:'openWeb',
+    webPage:'externalPage',
     externalPage:'',
     isPagePopUp:true,
     isPageAutoClose:true,
@@ -91,6 +133,8 @@ const formData = reactive({
     pageHeight:100,
     pageTitle:'',
     visualizationId:'',
+    showElement:'',
+    hideElement:'',
 })  
 
 const eventPotions = reactive([
@@ -113,7 +157,7 @@ const actionPotions = reactive([
 
 ])
 
-const webPotions= reactive([
+const webPage= reactive([
     { value: 'innerPage', label: '内部页面' },
     { value: 'externalPage', label: '外部页面' },
 ])
@@ -147,19 +191,17 @@ watch(() => props.data, async (val: any) => {
  * @returns 
  */
  async function getJsonDataById() {
+    console.log('enter getJsonDataById')
     return new Promise((resolve, reject) => {
-        VisualAPI.getJsonDataById(null)
+        VisualAPI.getJsonDataById({current_page: 1, per_page: 10000})
             .then(({ data: result }) => {
 
-                console.log('getJsonDataById result',result)
-
-
+                //console.log('getJsonDataById result',result)
                 if (result.code === 200) {
 
-                    console.log('getJsonDataById result.data',result.data)
 
                     const { data } = result.data;
-                    const options = data.map((item: any) => ({ value: item.id, label: item.name }))
+                    const options = data.map((item: any) => ({ value: item.id, label: item.dashboard_name }))
                     resolve(options)
                 }
             })
@@ -167,10 +209,18 @@ watch(() => props.data, async (val: any) => {
     })
 }
 
-onMounted(async () => {
+function getCellIdList(){
 
+    const options = props.cellList.map((item: any) => ({ value: item.view.cell.zIndex, label: item.view.cell.zIndex }));
+    console.log('getCellIdList options',options)
+    return options;
+
+}
+
+onMounted(async () => {
     visualizationOptions.value = await getJsonDataById();
-    
+    console.log('onMounted cellList',props.cellList)
+    showLayerIndexOption.value = getCellIdList();
 });
 
 

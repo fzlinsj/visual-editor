@@ -24,7 +24,7 @@
             <!-- 组件事件 -->
             <el-tab-pane label="事件" name="compEvent" v-if="!isEdge && isNode">
                 <component v-if="isNode" :is="eventCpt" :data="eventData"  @onChange="onChange">
-                    <BaseEvent :data="bindData" @onChange="onChange"/>
+                    <BaseEvent :data="bindData" :cellList='cellList' @onChange="onChange"/>
                 </component>
             </el-tab-pane>
             <!-- 图层 -->
@@ -57,6 +57,7 @@ let {
     cellList
 } = useEvents();
 const cellIndex=ref(-1)
+
 // 自定义样式
 const attrData = ref<any>({});
 // 数据绑定

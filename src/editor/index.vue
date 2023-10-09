@@ -46,9 +46,9 @@ import CustomPlugins from "./components/left-aside/CustomPlugins.vue";
 
 const params: any = inject('params', null);
 //家里
-params.id = '8df512fc-bde4-1318-cb91-4a41f9bd5870'
+//params.id = '8df512fc-bde4-1318-cb91-4a41f9bd5870'
 //公司
-//params.id = '2ca6c474-33c0-bcc0-67a8-5a07765d2181'
+params.id = '2ca6c474-33c0-bcc0-67a8-5a07765d2181'
 
 const { initCanvas, screenName } = useCanvas(params?.id || null);
 

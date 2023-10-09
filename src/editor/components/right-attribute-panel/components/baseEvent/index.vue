@@ -7,7 +7,7 @@
             <el-button style="width:100%" @click="addEventData">新增事件</el-button>
             <div class="device-container overflow-y-auto overflow-x-auto" >
                 <div v-for="(event, index) in eventData" >
-                  <EventSelector :index="index" :data="event" @delete="handleDeleteEvent" @change="handleChangeEventData"/>
+                  <EventSelector :index="index" :data="event" :cell-list="cellList" @delete="handleDeleteEvent" @change="handleChangeEventData"/>
                 </div>
             </div>
             
@@ -20,14 +20,16 @@
   <script setup lang="ts">
   import { ref, reactive, onMounted, getCurrentInstance, toRaw, watch } from "vue";
   import { ElMessageBox } from 'element-plus'
-  
   import EventSelector from "./components/EventSelector.vue";
-
 
   const props = defineProps({
     data: {
       type: [Object],
       default: () => ({})
+    },
+    cellList: {
+      type: Array,
+      default: () => ([])
     }
   })
   
