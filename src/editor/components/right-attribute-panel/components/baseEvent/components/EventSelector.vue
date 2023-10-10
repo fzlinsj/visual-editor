@@ -96,6 +96,23 @@
                     />
                     </el-select>
                 </el-form-item>
+                <el-form-item label="隐藏元素" v-if="formData.actionType=='showOrHideElement'">
+                    <el-select
+                    v-model="formData.hideElement"
+                    multiple
+                    collapse-tags
+                    collapse-tags-tooltip
+                    placeholder="选择要隐藏的元素层级"
+                    style="width: 240px"
+                    >
+                    <el-option
+                    v-for="item in hideLayerIndexOption"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                    />
+                    </el-select>
+                </el-form-item>
 
             </el-form>
         </el-collapse-item>
@@ -120,7 +137,7 @@ const activeNames = ref<string[]>(['style']);
 
 const visualizationOptions = ref<any>([]);
 const showLayerIndexOption = ref<any>([]);
-
+const hideLayerIndexOption = ref<any>([]);
 
 const formData = reactive({
     eventType: 'upSpring',
@@ -133,8 +150,8 @@ const formData = reactive({
     pageHeight:100,
     pageTitle:'',
     visualizationId:'',
-    showElement:'',
-    hideElement:'',
+    showElement:[],
+    hideElement:[],
 })  
 
 const eventPotions = reactive([
@@ -209,18 +226,29 @@ watch(() => props.data, async (val: any) => {
     })
 }
 
-function getCellIdList(){
+function getCanShowCellIdList(){
 
     const options = props.cellList.map((item: any) => ({ value: item.view.cell.zIndex, label: item.view.cell.zIndex }));
-    console.log('getCellIdList options',options)
-    return options;
+    let filterOptions = options.filter(function (n) {
+        return !formData.hideElement.includes(parseInt(n.label))
+    })
+    console.log('getCanShowCellIdList filterOptions',filterOptions)
+    return filterOptions;
 
+}
+
+function getCanHideCellIdList(){
+    const options = props.cellList.map((item: any) => ({ value: item.view.cell.zIndex, label: item.view.cell.zIndex }));
+    let filterOptions = options.filter(function (n) {
+        return !formData.showElement.includes(parseInt(n.label))
+    })
+    console.log('getCanHideCellIdList filterOptions',filterOptions)
+    return filterOptions;
 }
 
 onMounted(async () => {
     visualizationOptions.value = await getJsonDataById();
-    console.log('onMounted cellList',props.cellList)
-    showLayerIndexOption.value = getCellIdList();
+    showLayerIndexOption.value = getCanShowCellIdList();
 });
 
 
