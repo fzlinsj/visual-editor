@@ -22,7 +22,7 @@
                 </component>
             </el-tab-pane>
             <!-- 组件事件 -->
-            <el-tab-pane label="事件" name="compEvent" v-if="!isEdge && isNode">
+            <el-tab-pane label="事件" name="compEvent" v-if="!isEdge && isNode && eventCpt">
                 <component v-if="isNode" :is="eventCpt" :data="eventData"  @onChange="onChange">
                     <BaseEvent :data="bindData" :cellList='cellList' @onChange="onChange"/>
                 </component>

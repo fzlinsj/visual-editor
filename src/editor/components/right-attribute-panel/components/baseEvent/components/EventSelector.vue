@@ -248,8 +248,33 @@ function getCanHideCellIdList(){
 
 onMounted(async () => {
     visualizationOptions.value = await getJsonDataById();
-    showLayerIndexOption.value = getCanShowCellIdList();
+  
 });
+
+
+watch(() => formData.actionType, async (value) => {
+
+    if(value === 'showOrHideElement'){
+        showLayerIndexOption.value = getCanShowCellIdList();
+        hideLayerIndexOption.value = getCanHideCellIdList();
+    }
+
+    
+}, { immediate: true });
+
+watch(() => formData.showElement, async (value) => {
+
+    hideLayerIndexOption.value = getCanHideCellIdList();
+
+
+}, { immediate: true });
+
+watch(() => formData.hideElement, async (value) => {
+
+    showLayerIndexOption.value = getCanShowCellIdList();
+
+
+}, { immediate: true });
 
 
 /**
