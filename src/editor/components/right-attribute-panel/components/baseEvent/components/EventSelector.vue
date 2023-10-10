@@ -150,8 +150,8 @@ const formData = reactive({
     pageHeight:100,
     pageTitle:'',
     visualizationId:'',
-    showElement:[],
-    hideElement:[],
+    showElement:[] as any[],
+    hideElement:[] as any[],
 })  
 
 const eventPotions = reactive([
