@@ -21,6 +21,8 @@
   import { ref, reactive, onMounted, getCurrentInstance, toRaw, watch } from "vue";
   import { ElMessageBox } from 'element-plus'
   import EventSelector from "./components/EventSelector.vue";
+  import { useBaseEventData } from './useBaseEventData'
+
 
   const props = defineProps({
     data: {
@@ -32,20 +34,16 @@
       default: () => ([])
     }
   })
+
+
+  let { 
+      formData
+  } = useBaseEventData();
   
   const emit = defineEmits(["onChange"]);
 
   const eventData = ref<any>([
-    {
-        eventType: 'upSpring',
-        actionType:'animation',
-        externalPage:'',
-        isPagePopUp:true,
-        isPageAutoClose:true,
-        pageWidth:100,
-        pageHeight:100,
-        pageTitle:'',
-    }
+    formData
   ]
 
   )
@@ -55,16 +53,7 @@
   })
 
   const addEventData =()=>{
-    eventData.value.push({
-        eventType: 'upSpring',
-        actionType:'animation',
-        externalPage:'',
-        isPagePopUp:true,
-        isPageAutoClose:true,
-        pageWidth:100,
-        pageHeight:100,
-        pageTitle:'',
-    })
+    eventData.value.push(formData)
 
   }
 
@@ -74,16 +63,7 @@
         eventData.value = JSON.parse(JSON.stringify(val.eventData));
     } else {
         eventData.value = [
-        {
-            eventType: 'upSpring',
-            actionType:'animation',
-            externalPage:'',
-            isPagePopUp:true,
-            isPageAutoClose:true,
-            pageWidth:100,
-            pageHeight:100,
-            pageTitle:'',
-        }
+        formData
       ]
     }
   }, {deep: true, immediate: true});
@@ -95,7 +75,10 @@
   }, {deep: true});
   
   const handleChangeEventData = (data: any) => {
+
     eventData.value.splice(data.index, 1, data);
+
+    console.log('evnetData:'+JSON.stringify(eventData))
   }
   
   /**

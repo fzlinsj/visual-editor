@@ -123,6 +123,8 @@
 import { ref, reactive, watch, toRaw, onMounted, watchEffect } from "vue";
 import { Delete } from '@element-plus/icons-vue'
 import VisualAPI from "@/api/visual";
+import { useBaseEventData } from '../useBaseEventData'
+
 
 const props = defineProps({
     index: Number,
@@ -139,20 +141,26 @@ const visualizationOptions = ref<any>([]);
 const showLayerIndexOption = ref<any>([]);
 const hideLayerIndexOption = ref<any>([]);
 
-const formData = reactive({
-    eventType: 'upSpring',
-    actionType:'openWeb',
-    webPage:'externalPage',
-    externalPage:'',
-    isPagePopUp:true,
-    isPageAutoClose:true,
-    pageWidth:100,
-    pageHeight:100,
-    pageTitle:'',
-    visualizationId:'',
-    showElement:[] as any[],
-    hideElement:[] as any[],
-})  
+// const formData = reactive({
+//     eventType: 'upSpring',
+//     actionType:'openWeb',
+//     webPage:'externalPage',
+//     externalPage:'',
+//     isPagePopUp:true,
+//     isPageAutoClose:true,
+//     pageWidth:100,
+//     pageHeight:100,
+//     pageTitle:'',
+//     visualizationId:'',
+//     showElement:[] as any[],
+//     hideElement:[] as any[],
+// })  
+
+let { 
+    formData 
+} = useBaseEventData();
+
+
 
 const eventPotions = reactive([
     { value: 'click', label: '单击' },
@@ -183,8 +191,6 @@ watch(() => formData, (value) => {
     console.log('watch formData', value)
     emit('change', { index: props.index, ...toRaw(value) })
 }, { deep: true })
-
-
 
 
 const options = reactive({
