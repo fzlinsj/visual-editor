@@ -71,7 +71,7 @@
   
   watch(eventData, (value) => {
     console.log('baseData.device', value)
-    emit('onChange', { data: { bindType: 'event', eventData: toRaw(eventData.value) }})
+    emit('onChange', { eventData: { bindType: 'event', eventData: toRaw(eventData.value) }})
   }, {deep: true});
   
   const handleChangeEventData = (data: any) => {
