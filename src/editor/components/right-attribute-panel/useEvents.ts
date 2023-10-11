@@ -351,7 +351,7 @@ export const useEvents = () => {
      * @param dataT
      */
     const onChange = (data: any) => {
-        console.log('=================useEvents.onChange1', data)
+        console.log('=================useEvents.onChange0 data:',JSON.stringify(data) )
         let jsonStr = "{}";
         if (currentNode?.getData()) {
             // 从节点的附加数据中获取JSON字符串
@@ -360,18 +360,22 @@ export const useEvents = () => {
         }
         const jsonObj = isJSON(jsonStr);
 
+        console.log('=================useEvents.onChange1 data:',JSON.stringify(jsonObj) )
+
         if (data?.style) {
             jsonObj.style = { ...data.style };
         }
-
-
-
         if (data?.data) {
             jsonObj.data = { ...data.data };
         }
+        if(data?.eventData){
+            
+            jsonObj.eventData = { ...data.eventData };
+        }
+
         // 因为antv-x6的setData暂不支持Array，所以这里只能用JSON字符串来存储数据
         const jsonData = JSON.stringify(jsonObj);
-        console.log('useEvents.onChange', jsonData)
+        console.log('====useEvents.onChange2 data:', jsonData)
         // 更新节点的附加数据，写入JSON字符串
 
         currentNode.setData({
