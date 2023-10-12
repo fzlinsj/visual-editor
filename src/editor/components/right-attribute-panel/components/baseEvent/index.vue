@@ -58,9 +58,10 @@
   }
 
   watch(() => props.data, (val) => {
-    console.log('baseData.data', val)
+    console.log('baseData.data', JSON.stringify(val))
     if (JSON.stringify(val) !== "{}" && val.eventData) {
         eventData.value = JSON.parse(JSON.stringify(val.eventData));
+        console.log('eventData.value',eventData)
     } else {
         eventData.value = [
         formData

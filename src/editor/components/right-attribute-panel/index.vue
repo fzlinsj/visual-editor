@@ -24,7 +24,7 @@
             <!-- 组件事件 -->
             <el-tab-pane label="事件" name="compEvent" v-if="!isEdge && isNode && eventCpt">
                 <component v-if="isNode" :is="eventCpt" :data="eventData"  @onChange="onChange">
-                    <BaseEvent :data="bindData" :cellList='cellList' @onChange="onChange"/>
+                    <BaseEvent :data="eventData" :cellList='cellList' @onChange="onChange"/>
                 </component>
             </el-tab-pane>
             <!-- 图层 -->
@@ -79,9 +79,11 @@ watch(nodeData, (value) => {
     }
     const jsonObj = parseJSONData(value.data.jsonData);
 
+    console.log('click watch:'+JSON.stringify(jsonObj))
+
     attrData.value = {...jsonObj.style};
     bindData.value = {...jsonObj.data};
-    eventData.value ={...jsonObj.event};
+    eventData.value ={...jsonObj.eventData};
 
 })
 
