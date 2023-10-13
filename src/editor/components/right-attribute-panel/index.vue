@@ -79,11 +79,13 @@ watch(nodeData, (value) => {
     }
     const jsonObj = parseJSONData(value.data.jsonData);
 
-    console.log('click watch:'+JSON.stringify(jsonObj))
+    console.log('click watch jsonObj:'+JSON.stringify(jsonObj))
 
     attrData.value = {...jsonObj.style};
     bindData.value = {...jsonObj.data};
     eventData.value ={...jsonObj.eventData};
+
+    console.log('click watch eventData:'+JSON.stringify(eventData.value))
 
 })
 

@@ -61,7 +61,7 @@
     console.log('baseData.data', JSON.stringify(val))
     if (JSON.stringify(val) !== "{}" && val.eventData) {
         eventData.value = JSON.parse(JSON.stringify(val.eventData));
-        console.log('eventData.value',eventData)
+        console.log('eventData.value',JSON.stringify(eventData.value))
     } else {
         eventData.value = [
         formData

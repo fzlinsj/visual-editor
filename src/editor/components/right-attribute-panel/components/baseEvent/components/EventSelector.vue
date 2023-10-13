@@ -202,8 +202,9 @@ watch(() => props.data, async (val: any) => {
     console.log('watch props.data', val)
     if (JSON.stringify(val) === "{}") return;
     // 项目
-    formData.eventType = val.eventType || "";
+    //formData.eventType = val.eventType || "";
    
+    Object.assign(formData,val);
 
 
 }, { deep: true, immediate: true });
