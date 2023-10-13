@@ -86,6 +86,8 @@ export const getDisplayComponent = (cpt: Component, nodeData: any, refType: any)
 
             handleNodeEvent(eventType: string){
 
+                console.log('eventType:'+eventType)
+
                 if(!this.eventData){
                     return;
                 }
@@ -115,9 +117,6 @@ export const getDisplayComponent = (cpt: Component, nodeData: any, refType: any)
                     }
                 });
 
-            },
-            onclick(value: any){
-                this.handleNodeEvent('upSpring');
             }
         },
         render() {
@@ -127,8 +126,9 @@ export const getDisplayComponent = (cpt: Component, nodeData: any, refType: any)
                     value={this.value} 
                     style={this.style} 
                     data={this.data} 
-                    onChange={this.onChange}
-                    onclick={this.onclick}
+                    onChange={(this.onChange)}
+                    onclick={(value: any)=>{this.handleNodeEvent('upSpring');}}
+                    dblclick={(value: any)=>{this.handleNodeEvent('dblclick');}}
                     isDisplay={true}
                     />
             )
