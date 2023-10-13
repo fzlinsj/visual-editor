@@ -2,6 +2,7 @@ import { parseJSONData, randomString } from "@/utils";
 import { Component, defineComponent } from "vue";
 import { DataConfig } from "../config/DataConfig";
 import { Node } from "@antv/x6";
+import { ElMessage } from 'element-plus'
 
 export const getDisplayComponent = (cpt: Component, nodeData: any, refType: any): Component => {
     return defineComponent({
@@ -11,11 +12,13 @@ export const getDisplayComponent = (cpt: Component, nodeData: any, refType: any)
                 value: "",
                 style: {},
                 data: {},
+                eventData:[],
                 id: randomString(8),
                 dataConfig: new DataConfig(nodeData, refType)
             }
         },
         mounted() {
+
             const node: Node.Properties = (this as any).getNode() as Node.Properties;
             const data = node.store.data.data || {};
             console.log('display.mounted.data', data)
@@ -47,6 +50,17 @@ export const getDisplayComponent = (cpt: Component, nodeData: any, refType: any)
                     this.dataConfig.start();
                 }
             }
+
+            if(jsonData.eventData){
+
+                //console.log('onMount eventData is ', jsonData.eventData)
+
+                this.eventData = jsonData.eventData.eventData;
+
+                //console.log('this eventData is ', this.eventData)
+
+            }
+
             console.log('display.mounted.this.style', jsonData.data)
 
 
@@ -67,6 +81,43 @@ export const getDisplayComponent = (cpt: Component, nodeData: any, refType: any)
                     // 重启定时器
                     this.dataConfig.start();
                 }
+            },
+
+
+            handleNodeEvent(eventType: string){
+
+                if(!this.eventData){
+                    return;
+                }
+
+                if(this.eventData.length == 0){
+                    return;
+                }
+                this.eventData.forEach((eventParam: any) => {
+                    if(eventParam.eventType === eventType){
+                        switch(eventParam.eventType){
+                            case 'click'://单击
+                            break;
+                            case 'dblClick'://双击
+                            break;
+                            case 'pressDown'://按下
+                            break;   
+                            case 'upSpring'://弹起
+                            break;   
+                            case 'moveIn'://鼠标移入
+                            break;  
+                            case 'moveOut'://鼠标移出
+                            break;   
+
+                        }
+
+                        
+                    }
+                });
+
+            },
+            onclick(value: any){
+                this.handleNodeEvent('upSpring');
             }
         },
         render() {
@@ -77,7 +128,8 @@ export const getDisplayComponent = (cpt: Component, nodeData: any, refType: any)
                     style={this.style} 
                     data={this.data} 
                     onChange={this.onChange}
-                     isDisplay={true}
+                    onclick={this.onclick}
+                    isDisplay={true}
                     />
             )
         }
