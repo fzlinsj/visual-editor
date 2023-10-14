@@ -12,9 +12,9 @@ export const getDisplayComponent = (cpt: Component, nodeData: any, refType: any)
                 value: "",
                 style: {},
                 data: {},
-                eventData:[],
                 id: randomString(8),
-                dataConfig: new DataConfig(nodeData, refType)
+                dataConfig: new DataConfig(nodeData, refType),
+                eventData:[],
             }
         },
         mounted() {
@@ -53,11 +53,11 @@ export const getDisplayComponent = (cpt: Component, nodeData: any, refType: any)
 
             if(jsonData.eventData){
 
-                //console.log('onMount eventData is ', jsonData.eventData)
+                console.log('onMount eventData is ', jsonData.eventData)
 
                 this.eventData = jsonData.eventData.eventData;
 
-                //console.log('this eventData is ', this.eventData)
+                console.log('this eventData is ', this.eventData)
 
             }
 
@@ -83,10 +83,38 @@ export const getDisplayComponent = (cpt: Component, nodeData: any, refType: any)
                 }
             },
 
+            onClick(value:any){
 
+                console.log('onClick',value)
+
+            },
+
+            onDblClick(value:any){value
+
+                console.log('onDblClick',value)
+
+            },
+
+            onMouseDown(value:any){
+
+                console.log('onMouseDown',value)
+
+            },
+
+            onMouseUp(value:any){
+                console.log('onMouseUp',value)
+            },
+
+            onMouseEnter(value:any){
+                console.log('onMouseEnter',value)
+            },
+
+            onMouseLeave(value:any){
+                console.log('onMouseLeave',value)
+            },
             handleNodeEvent(eventType: string){
 
-                console.log('eventType:'+eventType)
+                //console.log('eventData:',this.eventData)
 
                 if(!this.eventData){
                     return;
@@ -96,19 +124,26 @@ export const getDisplayComponent = (cpt: Component, nodeData: any, refType: any)
                     return;
                 }
                 this.eventData.forEach((eventParam: any) => {
+                    //console.log('eventParam:'+JSON.stringify(eventParam))
                     if(eventParam.eventType === eventType){
                         switch(eventParam.eventType){
-                            case 'click'://单击
+                            case 'onClick'://单击
+                            this.onClick(eventParam)
                             break;
-                            case 'dblClick'://双击
+                            case 'onDblClick'://双击
+                            this.onDblClick(eventParam)
                             break;
-                            case 'pressDown'://按下
+                            case 'onMouseDown'://按下
+                            this.onMouseDown(eventParam)
                             break;   
-                            case 'upSpring'://弹起
+                            case 'onMouseUp'://弹起
+                            this.onMouseUp(eventParam)
                             break;   
-                            case 'moveIn'://鼠标移入
+                            case 'onMouseEnter'://鼠标移入
+                            this.onMouseEnter(eventParam)
                             break;  
-                            case 'moveOut'://鼠标移出
+                            case 'onMouseLeave'://鼠标移出
+                            this.onMouseLeave(eventParam)
                             break;   
 
                         }
@@ -126,9 +161,13 @@ export const getDisplayComponent = (cpt: Component, nodeData: any, refType: any)
                     value={this.value} 
                     style={this.style} 
                     data={this.data} 
-                    onChange={(this.onChange)}
-                    onclick={(value: any)=>{this.handleNodeEvent('upSpring');}}
-                    dblclick={(value: any)=>{this.handleNodeEvent('dblclick');}}
+                    onChange={this.onChange}
+                    onClick={(value:any)=>{this.handleNodeEvent('onClick')}}
+                    onDblclick={(value:any)=>{this.handleNodeEvent('onDblClick')}}
+                    onMousedown ={(value:any)=>{this.handleNodeEvent('onMouseDown')}}
+                    onMouseup ={(value:any)=>{this.handleNodeEvent('onMouseUp')}}
+                    onMouseenter ={(value:any)=>{this.handleNodeEvent('onMouseEnter')}}	
+                    onMouseleave={(value:any)=>{this.handleNodeEvent('onMouseLeave')}}
                     isDisplay={true}
                     />
             )

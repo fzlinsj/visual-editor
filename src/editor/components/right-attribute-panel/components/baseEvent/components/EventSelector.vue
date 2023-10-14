@@ -163,12 +163,12 @@ let {
 
 
 const eventPotions = reactive([
-    { value: 'click', label: '单击' },
-    { value: 'dblClick', label: '双击' },
-    { value: 'pressDown', label: '按下' },
-    { value: 'upSpring', label: '弹起' },
-    { value: 'moveIn', label: '鼠标移入' },
-    { value: 'moveOut', label: '鼠标移出' },
+    { value: 'onClick', label: '单击' },
+    { value: 'onDblClick', label: '双击' },
+    { value: 'onMouseDown', label: '按下' },
+    { value: 'onMouseUp', label: '弹起' },
+    { value: 'onMouseEnter', label: '鼠标移入' },
+    { value: 'onMouseLeave', label: '鼠标移出' },
 
 ])
 const actionPotions = reactive([

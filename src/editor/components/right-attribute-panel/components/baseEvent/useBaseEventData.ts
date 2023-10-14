@@ -3,7 +3,7 @@ import { reactive, ref } from "vue";
 export const useBaseEventData = () => {
     
     const formData = reactive({
-        eventType: 'upSpring',
+        eventType: 'onClick',
         actionType:'openWeb',
         webPage:'externalPage',
         externalPage:'',
