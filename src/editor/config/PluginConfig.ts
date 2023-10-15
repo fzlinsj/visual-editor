@@ -26,7 +26,7 @@ class PluginConfig implements IPluginConfig  {
     }
 
     public static getInstance(plugins: any = null): PluginConfig {
-        console.log('plugin.PluginConfig.getInstance', plugins)
+        
         if (!PluginConfig.instance) {
             PluginConfig.instance = new PluginConfig(plugins);
         }
@@ -34,6 +34,7 @@ class PluginConfig implements IPluginConfig  {
     }
     
     public addComponent(name: String, component: any): void {
+        console.log('addComponent name:'+name)
         this.components.set(name, component);
     }
 
@@ -58,7 +59,7 @@ class PluginConfig implements IPluginConfig  {
     }
 
     public registerComponents(mode: "editor" | "display", data: any): void {
-        console.log('============registerComponents===================', this.plugins)
+        console.log('============registerComponents===================', mode,this.plugins,data)
         const plugins: any = this.plugins;
         for (const key in plugins) {
             console.log('registerComponents', key)
@@ -74,7 +75,7 @@ class PluginConfig implements IPluginConfig  {
                                 this.registerComponent(cell, cpt);
                             } else if (mode === 'display') {
                                 console.log('registerComponents.view.Data', cell.data)
-                                const cpt: Component = getDisplayComponent(view.Main, cell.data || null, view.type);
+                                const cpt: Component = getDisplayComponent(view.Main, cell.data || null, view.type,data);
                                 this.registerComponent(cell, cpt);
                             }
                         } else if (cell.data && cell.data.pic) {

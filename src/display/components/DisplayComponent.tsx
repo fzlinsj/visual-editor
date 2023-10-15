@@ -3,8 +3,10 @@ import { Component, defineComponent } from "vue";
 import { DataConfig } from "../config/DataConfig";
 import { Node } from "@antv/x6";
 import { ElMessage } from 'element-plus'
+import { breakpointsTailwind } from "@vueuse/core";
+import {PluginConfig} from "@/editor/config";
 
-export const getDisplayComponent = (cpt: Component, nodeData: any, refType: any): Component => {
+export const getDisplayComponent = (cpt: Component, nodeData: any, refType: any,cellList: any): Component => {
     return defineComponent({
         inject: ['getNode'],
         data() {
@@ -15,12 +17,18 @@ export const getDisplayComponent = (cpt: Component, nodeData: any, refType: any)
                 id: randomString(8),
                 dataConfig: new DataConfig(nodeData, refType),
                 eventData:[],
+                cellList:[],
+                
             }
         },
         mounted() {
 
+
+            
+
             const node: Node.Properties = (this as any).getNode() as Node.Properties;
             const data = node.store.data.data || {};
+            this.cellList = cellList;
             console.log('display.mounted.data', data)
             const jsonData = parseJSONData(data.jsonData);
             if (jsonData.style) {
@@ -83,35 +91,52 @@ export const getDisplayComponent = (cpt: Component, nodeData: any, refType: any)
                 }
             },
 
-            onClick(value:any){
+            handleShowOrHideElement(showList:[],hideList:[]){
 
-                console.log('onClick',value)
+                console.log('cellList:'+JSON.stringify(PluginConfig.getInstance().getComponents()))
 
-            },
+                // this.cellList.forEach((cell: any) => {
 
-            onDblClick(value:any){value
+                //     cell.setVisible(false)
 
-                console.log('onDblClick',value)
+                    
+                // });
 
-            },
 
-            onMouseDown(value:any){
-
-                console.log('onMouseDown',value)
 
             },
 
-            onMouseUp(value:any){
-                console.log('onMouseUp',value)
+            handleEvent(params:any){
+
+                //console.log('handleEvent',params)
+                if(!params){
+                    return;
+                }
+                switch(params.actionType){
+
+                    case 'openWeb':
+                    break;
+                    case 'setVariable':
+                    break;
+                    case 'showOrHideElement':
+                        this.handleShowOrHideElement(params.showElement,params.hideElement)
+                    break;
+                    case 'script':
+                    break;
+                    case 'deviceView':
+                    break;
+                    case 'callApi':
+                    break;
+                    case 'animation':
+                    break;    
+
+
+                }
+
+
             },
 
-            onMouseEnter(value:any){
-                console.log('onMouseEnter',value)
-            },
-
-            onMouseLeave(value:any){
-                console.log('onMouseLeave',value)
-            },
+            
             handleNodeEvent(eventType: string){
 
                 //console.log('eventData:',this.eventData)
@@ -124,31 +149,10 @@ export const getDisplayComponent = (cpt: Component, nodeData: any, refType: any)
                     return;
                 }
                 this.eventData.forEach((eventParam: any) => {
-                    //console.log('eventParam:'+JSON.stringify(eventParam))
+
                     if(eventParam.eventType === eventType){
-                        switch(eventParam.eventType){
-                            case 'onClick'://单击
-                            this.onClick(eventParam)
-                            break;
-                            case 'onDblClick'://双击
-                            this.onDblClick(eventParam)
-                            break;
-                            case 'onMouseDown'://按下
-                            this.onMouseDown(eventParam)
-                            break;   
-                            case 'onMouseUp'://弹起
-                            this.onMouseUp(eventParam)
-                            break;   
-                            case 'onMouseEnter'://鼠标移入
-                            this.onMouseEnter(eventParam)
-                            break;  
-                            case 'onMouseLeave'://鼠标移出
-                            this.onMouseLeave(eventParam)
-                            break;   
+                        this.handleEvent(eventParam);
 
-                        }
-
-                        
                     }
                 });
 
