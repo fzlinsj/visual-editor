@@ -57,6 +57,8 @@ export const useDisplay = (containerId: string) => {
     
                 const  theg = canvasConfig.getGraph()
                 const Edges=theg.getEdges()
+               
+
                 console.log(Edges)
                 Edges.forEach((edge:any)=>{
                     console.log(edge.attr('targetData'))

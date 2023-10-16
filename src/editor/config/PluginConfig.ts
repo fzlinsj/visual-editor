@@ -4,7 +4,8 @@ import { getDisplayComponent } from "@/display/components/DisplayComponent";
 import { getDisplayPicComponent } from "@/display/components/DisplayPicComponent";
 import { getDropPicComponent } from "../components/canvas-editor/DropPicComponent";
 import { Component } from "vue";
-
+import { CanvasConfig } from "@/editor/config";
+import { forEach } from "lodash";
 /**
  * @author cxs
  * @date 2023-05-20
@@ -23,6 +24,7 @@ class PluginConfig implements IPluginConfig  {
         this.plugins = plugins;
         this.components = new Map<String, any>();
         this.screenRect = screenRect;
+        
     }
 
     public static getInstance(plugins: any = null): PluginConfig {
@@ -75,7 +77,7 @@ class PluginConfig implements IPluginConfig  {
                                 this.registerComponent(cell, cpt);
                             } else if (mode === 'display') {
                                 console.log('registerComponents.view.Data', cell.data)
-                                const cpt: Component = getDisplayComponent(view.Main, cell.data || null, view.type,data);
+                                const cpt: Component = getDisplayComponent(view.Main, cell.data || null, view.type);           
                                 this.registerComponent(cell, cpt);
                             }
                         } else if (cell.data && cell.data.pic) {

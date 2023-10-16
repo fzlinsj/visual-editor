@@ -97,6 +97,8 @@ class CellEvents implements ICellEvents {
 
         // 节点双击事件
         this.graph.on("cell:dblclick", ({ e, x, y, cell, view }) => {
+
+            console.log('cell:dblclick cell:dblclick')
             this.dbClickListener && this.dbClickListener({ e, x, y, cell, view });
         });
 

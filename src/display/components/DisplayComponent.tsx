@@ -5,8 +5,10 @@ import { Node } from "@antv/x6";
 import { ElMessage } from 'element-plus'
 import { breakpointsTailwind } from "@vueuse/core";
 import {PluginConfig} from "@/editor/config";
+import { CanvasConfig } from "@/editor/config";
 
-export const getDisplayComponent = (cpt: Component, nodeData: any, refType: any,cellList: any): Component => {
+
+export const getDisplayComponent = (cpt: Component, nodeData: any, refType: any): Component => {
     return defineComponent({
         inject: ['getNode'],
         data() {
@@ -17,19 +19,15 @@ export const getDisplayComponent = (cpt: Component, nodeData: any, refType: any,
                 id: randomString(8),
                 dataConfig: new DataConfig(nodeData, refType),
                 eventData:[],
-                cellList:[],
+                canvasConfig: CanvasConfig.getDisplayInstance(),
                 
             }
         },
         mounted() {
 
 
-            
-
             const node: Node.Properties = (this as any).getNode() as Node.Properties;
             const data = node.store.data.data || {};
-            this.cellList = cellList;
-            console.log('display.mounted.data', data)
             const jsonData = parseJSONData(data.jsonData);
             if (jsonData.style) {
                 this.style = { ...jsonData.style }
@@ -93,14 +91,34 @@ export const getDisplayComponent = (cpt: Component, nodeData: any, refType: any,
 
             handleShowOrHideElement(showList:[],hideList:[]){
 
-                console.log('cellList:'+JSON.stringify(PluginConfig.getInstance().getComponents()))
+
+
+                var temp = this.canvasConfig?.getGraph()?.getNodes();
+
+                temp?.forEach((cell: any) => {
+
+                cell.visible = false;
+
+
+                });
+
+
+
+             
+
+                console.log('===cellList:',this.cellList)
 
                 // this.cellList.forEach((cell: any) => {
 
-                //     cell.setVisible(false)
+                //     cell.visible = false;
 
                     
                 // });
+
+
+              
+
+
 
 
 
