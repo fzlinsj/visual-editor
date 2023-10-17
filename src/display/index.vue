@@ -76,6 +76,10 @@ onMounted(() => {
     handleNodeEvent('onDblClick',getEventData(data));
 
   })
+
+  events.setClickEventListener((data:any)=>{
+    handleNodeEvent('onClick',getEventData(data));
+  })
   
 
 })
@@ -115,6 +119,7 @@ document.addEventListener("fullscreenchange", screenChange , true);
 
 
 
+//显示隐藏节点信息
 function handleShowOrHideElement(showList:[any],hideList:[any]){
 
   var temp = CanvasConfig.getDisplayInstance()?.getGraph()?.getNodes();
@@ -134,6 +139,36 @@ function handleShowOrHideElement(showList:[any],hideList:[any]){
   });
 };
 
+function handleOpenWeb(param:any){
+
+  //打开外部网页
+  if(param.webPage === 'externalPage'){
+
+    var externalPage = param.externalPage;
+    var isPagePopUp = param.isPagePopUp;
+    var isPageAutoClose = param.isPageAutoClose;
+    var pageWidth = param.pageWidth;
+    var pageHeight = param.pageHeight;
+    var pageTitle = param.pageTitle;
+
+    //window.open('https://www.baidu.com/', '_blank')
+
+    window.location.href = 'https://www.baidu.com';
+
+
+
+  }else{
+  //打开内部网页
+
+
+  }
+
+
+
+
+}
+
+
 function handleEvent(params:any){
   if(!params){
       return;
@@ -141,6 +176,7 @@ function handleEvent(params:any){
   switch(params.actionType){
 
       case 'openWeb':
+      handleOpenWeb(params)
       break;
       case 'setVariable':
       break;
