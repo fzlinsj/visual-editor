@@ -67,6 +67,14 @@ onMounted(() => {
     console.log("mounted", data)
     // containerRect.value = data.containerRect;
   })
+
+  events.setDBClickEventListener(()=>{
+
+
+    
+  })
+  
+
 })
 
 function handleToolsCommand(command: string) {

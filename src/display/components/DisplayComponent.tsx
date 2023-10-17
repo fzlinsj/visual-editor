@@ -89,38 +89,32 @@ export const getDisplayComponent = (cpt: Component, nodeData: any, refType: any)
                 }
             },
 
-            handleShowOrHideElement(showList:[],hideList:[]){
+
+
+            handleShowOrHideElement(showList:[any],hideList:[any]){
 
 
 
                 var temp = this.canvasConfig?.getGraph()?.getNodes();
 
+                console.log('nodes list',showList,hideList)
+
+
                 temp?.forEach((cell: any) => {
+                    if(showList?.includes(cell.zIndex)){
+                        console.log('cell zIndex:'+cell.zIndex+' isShow')
+                        cell.visible = true;
+                    }
 
-                cell.visible = false;
+                    if(hideList?.includes(cell.zIndex)){
+                        console.log('cell zIndex:'+cell.zIndex+' isHide')
+                        cell.visible = false;
 
+                    }
 
                 });
 
-
-
-             
-
-                console.log('===cellList:',this.cellList)
-
-                // this.cellList.forEach((cell: any) => {
-
-                //     cell.visible = false;
-
-                    
-                // });
-
-
-              
-
-
-
-
+            
 
             },
 
