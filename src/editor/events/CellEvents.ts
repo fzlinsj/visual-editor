@@ -98,14 +98,14 @@ class CellEvents implements ICellEvents {
         // 节点双击事件
         this.graph.on("cell:dblclick", ({ e, x, y, cell, view }) => {
 
-            console.log('cell:dblclick cell:dblclick',cell,view)
+            // console.log('cell:dblclick cell:dblclick',cell,view)
 
 
-            const node: Node.Properties = cell as unknown as Node.Properties;
-            const data = node.store.data.data || {};
-            const jsonData = parseJSONData(data.jsonData);
+            // const node: Node.Properties = cell as unknown as Node.Properties;
+            // const data = node.store.data.data || {};
+            // const jsonData = parseJSONData(data.jsonData);
 
-            console.log('jsonData:',jsonData);
+            // console.log('jsonData:',jsonData);
 
             this.dbClickListener && this.dbClickListener({ e, x, y, cell, view });
         });

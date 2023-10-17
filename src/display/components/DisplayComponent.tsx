@@ -57,15 +57,15 @@ export const getDisplayComponent = (cpt: Component, nodeData: any, refType: any)
                 }
             }
 
-            if(jsonData.eventData){
+            // if(jsonData.eventData){
 
-                console.log('onMount eventData is ', jsonData.eventData)
+            //     console.log('onMount eventData is ', jsonData.eventData)
 
-                this.eventData = jsonData.eventData.eventData;
+            //     this.eventData = jsonData.eventData.eventData;
 
-                console.log('this eventData is ', this.eventData)
+            //     console.log('this eventData is ', this.eventData)
 
-            }
+            // }
 
             console.log('display.mounted.this.style', jsonData.data)
 
@@ -91,84 +91,84 @@ export const getDisplayComponent = (cpt: Component, nodeData: any, refType: any)
 
 
 
-            handleShowOrHideElement(showList:[any],hideList:[any]){
+            // handleShowOrHideElement(showList:[any],hideList:[any]){
 
 
 
-                var temp = this.canvasConfig?.getGraph()?.getNodes();
+            //     var temp = this.canvasConfig?.getGraph()?.getNodes();
 
-                console.log('nodes list',showList,hideList)
-
-
-                temp?.forEach((cell: any) => {
-                    if(showList?.includes(cell.zIndex)){
-                        console.log('cell zIndex:'+cell.zIndex+' isShow')
-                        cell.visible = true;
-                    }
-
-                    if(hideList?.includes(cell.zIndex)){
-                        console.log('cell zIndex:'+cell.zIndex+' isHide')
-                        cell.visible = false;
-
-                    }
-
-                });
-
-            
-
-            },
-
-            handleEvent(params:any){
-
-                //console.log('handleEvent',params)
-                if(!params){
-                    return;
-                }
-                switch(params.actionType){
-
-                    case 'openWeb':
-                    break;
-                    case 'setVariable':
-                    break;
-                    case 'showOrHideElement':
-                        this.handleShowOrHideElement(params.showElement,params.hideElement)
-                    break;
-                    case 'script':
-                    break;
-                    case 'deviceView':
-                    break;
-                    case 'callApi':
-                    break;
-                    case 'animation':
-                    break;    
+            //     console.log('nodes list',showList,hideList)
 
 
-                }
+            //     temp?.forEach((cell: any) => {
+            //         if(showList?.includes(cell.zIndex)){
+            //             console.log('cell zIndex:'+cell.zIndex+' isShow')
+            //             cell.visible = true;
+            //         }
 
+            //         if(hideList?.includes(cell.zIndex)){
+            //             console.log('cell zIndex:'+cell.zIndex+' isHide')
+            //             cell.visible = false;
 
-            },
+            //         }
+
+            //     });
 
             
-            handleNodeEvent(eventType: string){
 
-                //console.log('eventData:',this.eventData)
+            // },
 
-                if(!this.eventData){
-                    return;
-                }
+            // handleEvent(params:any){
 
-                if(this.eventData.length == 0){
-                    return;
-                }
-                this.eventData.forEach((eventParam: any) => {
+            //     //console.log('handleEvent',params)
+            //     if(!params){
+            //         return;
+            //     }
+            //     switch(params.actionType){
 
-                    if(eventParam.eventType === eventType){
-                        this.handleEvent(eventParam);
+            //         case 'openWeb':
+            //         break;
+            //         case 'setVariable':
+            //         break;
+            //         case 'showOrHideElement':
+            //             this.handleShowOrHideElement(params.showElement,params.hideElement)
+            //         break;
+            //         case 'script':
+            //         break;
+            //         case 'deviceView':
+            //         break;
+            //         case 'callApi':
+            //         break;
+            //         case 'animation':
+            //         break;    
 
-                    }
-                });
 
-            }
+            //     }
+
+
+            // },
+
+            
+            // handleNodeEvent(eventType: string){
+
+            //     //console.log('eventData:',this.eventData)
+
+            //     if(!this.eventData){
+            //         return;
+            //     }
+
+            //     if(this.eventData.length == 0){
+            //         return;
+            //     }
+            //     this.eventData.forEach((eventParam: any) => {
+
+            //         if(eventParam.eventType === eventType){
+            //             this.handleEvent(eventParam);
+
+            //         }
+            //     });
+
+            // }
         },
         render() {
             return (
@@ -178,12 +178,12 @@ export const getDisplayComponent = (cpt: Component, nodeData: any, refType: any)
                     style={this.style} 
                     data={this.data} 
                     onChange={this.onChange}
-                    onClick={(value:any)=>{this.handleNodeEvent('onClick')}}
-                    onDblclick={(value:any)=>{this.handleNodeEvent('onDblClick')}}
-                    onMousedown ={(value:any)=>{this.handleNodeEvent('onMouseDown')}}
-                    onMouseup ={(value:any)=>{this.handleNodeEvent('onMouseUp')}}
-                    onMouseenter ={(value:any)=>{this.handleNodeEvent('onMouseEnter')}}	
-                    onMouseleave={(value:any)=>{this.handleNodeEvent('onMouseLeave')}}
+                    // onClick={(value:any)=>{this.handleNodeEvent('onClick')}}
+                    // onDblclick={(value:any)=>{this.handleNodeEvent('onDblClick')}}
+                    // onMousedown ={(value:any)=>{this.handleNodeEvent('onMouseDown')}}
+                    // onMouseup ={(value:any)=>{this.handleNodeEvent('onMouseUp')}}
+                    // onMouseenter ={(value:any)=>{this.handleNodeEvent('onMouseEnter')}}	
+                    // onMouseleave={(value:any)=>{this.handleNodeEvent('onMouseLeave')}}
                     isDisplay={true}
                     />
             )
