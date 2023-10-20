@@ -60,7 +60,7 @@
                     <el-switch v-model="formData.isPagePopUp" />
                 </el-form-item>
 
-                <el-form-item label="自动关闭" v-if="formData.actionType=='openWeb'">
+                <el-form-item label="自动关闭" v-if="formData.actionType=='openWeb'&&formData.isPagePopUp==true">
                     <el-switch v-model="formData.isPageAutoClose" />
                 </el-form-item>
 

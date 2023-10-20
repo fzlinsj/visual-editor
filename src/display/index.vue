@@ -1,5 +1,6 @@
 <template>
   <div id="displayContainer" style="width:100vw;height:100vh">
+   
     <div :id="Common.DEFAULT_DISPLAY_CONTAINER_ID"></div>
     <TeleportContainer />
   </div>
@@ -14,7 +15,9 @@
         </el-dropdown-menu>
       </template>
     </el-dropdown>
+    <Detail :visible.sync="detailDialogVisible" :url="detailUrl" :data="iframeParam"></Detail> 
   </div>
+  
 </template>
 
 <script setup lang="ts">
@@ -28,6 +31,38 @@ import { CanvasConfig } from "@/editor/config";
 import { More }  from "@element-plus/icons-vue";
 import {useIs3DMode} from "@/store/modules/is3DStroe";
 import { parseJSONData } from "@/utils";
+import Detail from "./components/Detail.vue"
+import { ElMessageBox } from 'element-plus'
+
+const handleClose = (done: () => void) => {
+  ElMessageBox.confirm('Are you sure to close this dialog?')
+    .then(() => {
+      done()
+    })
+    .catch(() => {
+      // catch error
+    })
+}
+
+const detailDialogVisible = ref(false);
+const detailUrl =ref<string>('');
+const props = defineProps({
+  data: {
+    type: Object,
+    default: () => ({})
+  },
+  
+})
+
+const iframeParam = ref(
+  {
+    name:'',
+    width:800,
+    height:600
+
+  }
+)
+
 
 
 const TeleportContainer = getTeleport();
@@ -144,6 +179,8 @@ function handleOpenWeb(param:any){
   //打开外部网页
   if(param.webPage === 'externalPage'){
 
+    console.log('handleOpenWeb')
+
     var externalPage = param.externalPage;
     var isPagePopUp = param.isPagePopUp;
     var isPageAutoClose = param.isPageAutoClose;
@@ -151,11 +188,22 @@ function handleOpenWeb(param:any){
     var pageHeight = param.pageHeight;
     var pageTitle = param.pageTitle;
 
-    //window.open('https://www.baidu.com/', '_blank')
+    if(isPagePopUp==true){
 
-    window.location.href = 'https://www.baidu.com';
+      detailUrl.value = externalPage;
+      detailDialogVisible.value = true
+
+      iframeParam.value.name = pageTitle;
+      iframeParam.value.width = 200;
+      iframeParam.value.height = 200;
 
 
+
+
+
+    }else{
+      window.open(externalPage);  
+    }
 
   }else{
   //打开内部网页
