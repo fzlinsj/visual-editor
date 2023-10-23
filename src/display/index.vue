@@ -178,9 +178,9 @@ function handleOpenWeb(param:any){
 
     var externalPage = param.externalPage;
     var isPagePopUp = param.isPagePopUp;
-    var isPageAutoClose = param.isPageAutoClose;
-    var pageWidth = param.pageWidth;
-    var pageHeight = param.pageHeight;
+    // var isPageAutoClose = param.isPageAutoClose;
+    // var pageWidth = param.pageWidth;
+    // var pageHeight = param.pageHeight;
     var pageTitle = param.pageTitle;
 
 
@@ -192,9 +192,9 @@ function handleOpenWeb(param:any){
       detailUrl.value = externalPage;
       detailDialogVisible.value = true
       iframeParam.value.name = pageTitle;
-      iframeParam.value.width =1024//parseInt(pageWidth);
-      iframeParam.value.height = 1024//parseInt(pageHeight);
-      console.log('=====iframeParam',iframeParam)
+      // iframeParam.value.width =1024//parseInt(pageWidth);
+      // iframeParam.value.height = 1024//parseInt(pageHeight);
+      //console.log('=====iframeParam',iframeParam)
 
     }else{
       window.open(externalPage);  
@@ -202,7 +202,10 @@ function handleOpenWeb(param:any){
 
   }else{
   //打开内部网页
+    console.log('=====handleOpenInnerWeb',param)
+    var visualizationId = param.visualizationId;
 
+    initDisplay("", visualizationId);
 
   }
 
