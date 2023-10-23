@@ -15,7 +15,7 @@
         </el-dropdown-menu>
       </template>
     </el-dropdown>
-    <Detail :visible.sync="detailDialogVisible" :url="detailUrl" :data="iframeParam"></Detail> 
+    <Detail :visible.sync="detailDialogVisible" :url="detailUrl" :data="iframeParam" :onClose="handleClose"></Detail> 
   </div>
   
 </template>
@@ -34,16 +34,11 @@ import { parseJSONData } from "@/utils";
 import Detail from "./components/Detail.vue"
 import { ElMessageBox } from 'element-plus'
 
-const handleClose = (done: () => void) => {
-  ElMessageBox.confirm('Are you sure to close this dialog?')
-    .then(() => {
-      done()
-    })
-    .catch(() => {
-      // catch error
-    })
-}
+const handleClose = (()=>{
 
+  detailDialogVisible.value = false;
+
+});
 const detailDialogVisible = ref(false);
 const detailUrl =ref<string>('');
 const props = defineProps({
@@ -57,8 +52,8 @@ const props = defineProps({
 const iframeParam = ref(
   {
     name:'',
-    width:800,
-    height:600
+    width:0,
+    height:0
 
   }
 )
@@ -179,7 +174,7 @@ function handleOpenWeb(param:any){
   //打开外部网页
   if(param.webPage === 'externalPage'){
 
-    console.log('handleOpenWeb')
+   
 
     var externalPage = param.externalPage;
     var isPagePopUp = param.isPagePopUp;
@@ -188,18 +183,18 @@ function handleOpenWeb(param:any){
     var pageHeight = param.pageHeight;
     var pageTitle = param.pageTitle;
 
+
+    console.log('=====handleOpenWeb',param)
+
+
     if(isPagePopUp==true){
 
       detailUrl.value = externalPage;
       detailDialogVisible.value = true
-
       iframeParam.value.name = pageTitle;
-      iframeParam.value.width = 200;
-      iframeParam.value.height = 200;
-
-
-
-
+      iframeParam.value.width =1024//parseInt(pageWidth);
+      iframeParam.value.height = 1024//parseInt(pageHeight);
+      console.log('=====iframeParam',iframeParam)
 
     }else{
       window.open(externalPage);  

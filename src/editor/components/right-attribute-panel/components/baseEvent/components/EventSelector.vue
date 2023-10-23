@@ -60,17 +60,17 @@
                     <el-switch v-model="formData.isPagePopUp" />
                 </el-form-item>
 
-                <el-form-item label="自动关闭" v-if="formData.actionType=='openWeb'&&formData.isPagePopUp==true">
+                <!-- <el-form-item label="自动关闭" v-if="formData.actionType=='openWeb'&&formData.isPagePopUp==true">
                     <el-switch v-model="formData.isPageAutoClose" />
-                </el-form-item>
+                </el-form-item> -->
 
-                <el-form-item label="页面宽度" v-if="formData.actionType=='openWeb'&&formData.webPage=='externalPage'&&formData.isPagePopUp==true">
+                <!-- <el-form-item label="页面宽度" v-if="formData.actionType=='openWeb'&&formData.webPage=='externalPage'&&formData.isPagePopUp==true">
                     <el-input type="number" v-model="formData.pageWidth"></el-input>
                 </el-form-item>
 
                 <el-form-item label="页面高度" v-if="formData.actionType=='openWeb'&&formData.webPage=='externalPage'&&formData.isPagePopUp==true">
                     <el-input type="number" v-model="formData.pageHeight"></el-input>
-                </el-form-item>
+                </el-form-item> -->
 
                 <el-form-item label="页面标题" v-if="formData.actionType=='openWeb'&&formData.webPage=='externalPage'&&formData.isPagePopUp==true">
                     <el-input type="text" v-model="formData.pageTitle"></el-input>
